@@ -9,6 +9,7 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Mai Hoang Viet DevOps Lab</title>
+    <h1>HELLO WORLD </h1>
 
 
     <!-- Custom styles for this template -->
