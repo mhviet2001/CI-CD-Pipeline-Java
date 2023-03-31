@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
-                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "MyLab-SNAPSHOT" : "MyLab-RELEASE"
+                    def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
                     nexusArtifactUploader artifacts:
                     [
                         [
@@ -39,7 +39,7 @@ pipeline {
                             type: 'war'
                         ]
                     ],
-                    credentialsId: 'd05c9836-69da-4714-89d5-f99abbb59dac',
+                    credentialsId: 'nexus',
                     groupId: "${GroupId}",
                     nexusUrl: '52.76.107.248:8081',
                     nexusVersion: 'nexus3',
