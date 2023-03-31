@@ -81,7 +81,7 @@ resource "aws_route_table_association" "my-rtb-a" {
 }
 
 # Create an Amazon Linux 2 instance to Jenkins
-resource "aws_instance" "Jenkins" {
+resource "aws_instance" "jenkins" {
   ami           = var.ami
   instance_type = var.instance_type
   key_name = "mhviet-key"
@@ -95,8 +95,14 @@ resource "aws_instance" "Jenkins" {
   }
 }
 
+# Assign an Elastic IP to Jenkins
+resource "aws_eip" "jenkins_eip" {
+  instance = aws_instance.jenkins.id
+  vpc      = true
+}
+
 # Create an Amazon Linux 2 instance to Ansible
-resource "aws_instance" "Ansible" {
+resource "aws_instance" "ansible" {
   ami           = var.ami
   instance_type = var.instance_type
   key_name = "mhviet-key"
@@ -110,8 +116,14 @@ resource "aws_instance" "Ansible" {
   }
 }
 
+# Assign an Elastic IP to Ansible
+resource "aws_eip" "ansible_eip" {
+  instance = aws_instance.ansible.id
+  vpc      = true
+}
+
 # Create an Amazon Linux 2 instance to Sonatype Nexus
-resource "aws_instance" "Nexus" {
+resource "aws_instance" "nexus" {
   ami           = var.ami
   instance_type = var.instance_type_for_nexus
   key_name = "mhviet-key"
@@ -125,8 +137,14 @@ resource "aws_instance" "Nexus" {
   }
 }
 
+# Assign an Elastic IP to Nexus
+resource "aws_eip" "nexus_eip" {
+  instance = aws_instance.nexus.id
+  vpc      = true
+}
+
 # Create an Amazon Linux 2 instance to Docker
-resource "aws_instance" "Docker" {
+resource "aws_instance" "docker" {
   ami           = var.ami
   instance_type = var.instance_type
   key_name = "mhviet-key"
@@ -138,4 +156,10 @@ resource "aws_instance" "Docker" {
   tags = {
     Name = "Docker"
   }
+}
+
+# Assign an Elastic IP to Docker
+resource "aws_eip" "docker_eip" {
+  instance = aws_instance.docker.id
+  vpc      = true
 }
