@@ -40,7 +40,7 @@ resource "aws_internet_gateway" "my-igw" {
 # Create Security Group
 resource "aws_security_group" "my-sg" {
   name = "my-sg"
-  description = "To allow inbound and outbound traffic to MyLab"
+  description = "Allow ports 22, 80, 443, 8080, 8081"
   vpc_id = aws_vpc.my-vpc.id
   dynamic ingress {
       iterator = port
@@ -59,7 +59,7 @@ resource "aws_security_group" "my-sg" {
       cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-      Name = "Allow traffic"
+      Name = "my-sg"
   }
 }
 
@@ -80,7 +80,7 @@ resource "aws_route_table_association" "my-rtb-a" {
   route_table_id = aws_route_table.my-rtb.id
 }
 
-# Create an AWS EC2 Instance to host Jenkins
+# Create an Amazon Linux 2 instance to Jenkins
 resource "aws_instance" "Jenkins" {
   ami           = var.ami
   instance_type = var.instance_type
@@ -95,7 +95,7 @@ resource "aws_instance" "Jenkins" {
   }
 }
 
-# Create an AWS EC2 Instance to host Ansible Controller
+# Create an Amazon Linux 2 instance to Ansible
 resource "aws_instance" "Ansible" {
   ami           = var.ami
   instance_type = var.instance_type
@@ -110,7 +110,7 @@ resource "aws_instance" "Ansible" {
   }
 }
 
-# Create an AWS EC2 Instance to host Sonatype Nexus
+# Create an Amazon Linux 2 instance Sonatype Nexus
 resource "aws_instance" "Nexus" {
   ami           = var.ami
   instance_type = var.instance_type_for_nexus
@@ -125,7 +125,7 @@ resource "aws_instance" "Nexus" {
   }
 }
 
-# Create an AWS EC2 Instance to host Docker
+# Create an Amazon Linux 2 instance to Docker
 resource "aws_instance" "Docker" {
   ami           = var.ami
   instance_type = var.instance_type
