@@ -7,12 +7,11 @@ terraform {
   }
 }
 
-# Configure the AWS provider 
 provider "aws" {
   region = "ap-southeast-1"
 }
 
-# Create a VPC
+# Create VPC
 resource "aws_vpc" "my-vpc"{
   cidr_block = var.cidr_block[0]
   tags = {
@@ -20,7 +19,7 @@ resource "aws_vpc" "my-vpc"{
   }
 }
 
-# Create Subnet (Public)
+# Create a subnet (Public)
 resource "aws_subnet" "my-subnet" {
   vpc_id = aws_vpc.my-vpc.id
   cidr_block = var.cidr_block[1]
@@ -37,10 +36,10 @@ resource "aws_internet_gateway" "my-igw" {
   }
 }
 
-# Create Security Group
+# Create security group to allow ports 22, 80, 443, 8080, 8081
 resource "aws_security_group" "my-sg" {
   name = "my-sg"
-  description = "Allow ports 22, 80, 443, 8080, 8081"
+  description = "Allow web inbound and outbound traffic"
   vpc_id = aws_vpc.my-vpc.id
   dynamic ingress {
       iterator = port
@@ -63,7 +62,7 @@ resource "aws_security_group" "my-sg" {
   }
 }
 
-# Create route table and association
+# Create custom route table
 resource "aws_route_table" "my-rtb" {
   vpc_id = aws_vpc.my-vpc.id
   route {
@@ -75,6 +74,7 @@ resource "aws_route_table" "my-rtb" {
   }
 }
 
+# Associate subnet with route table
 resource "aws_route_table_association" "my-rtb-a" {
   subnet_id = aws_subnet.my-subnet.id
   route_table_id = aws_route_table.my-rtb.id
@@ -110,7 +110,7 @@ resource "aws_instance" "Ansible" {
   }
 }
 
-# Create an Amazon Linux 2 instance Sonatype Nexus
+# Create an Amazon Linux 2 instance to Sonatype Nexus
 resource "aws_instance" "Nexus" {
   ami           = var.ami
   instance_type = var.instance_type_for_nexus
