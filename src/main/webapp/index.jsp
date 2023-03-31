@@ -52,7 +52,7 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1>Hello</h1>
+            <h1>Hello World !!! </h1>
             <p>This is Mai Hoang Viet CICD Lab</p>
             <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
             <p><a class="btn btn-primary btn-lg" role="button">Success!! more &raquo;</a></p>
