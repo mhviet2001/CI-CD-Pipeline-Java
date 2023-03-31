@@ -83,7 +83,7 @@
         </div>
         <div class="col-md-4">
             <h2>Ansible</h2>
-            <p>Using Ansible as Jenkins SSH Server to pull artifacts from Nexus and deploy to Dockerhost (build image, run container)</p>
+            <p>Using Ansible as Jenkins SSH Server to pull artifacts from Nexus and deploy to docker_host (build image, run container)</p>
             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
     </div>
