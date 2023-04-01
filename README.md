@@ -168,7 +168,7 @@ Click `Apply` and `Save`
 
 These lines below in Jenkinsfile will configure pipeline install Maven (`maven` in `''` is your `Name` you input in `Global Tool Configuration`)
 
-```
+```Groovy
 tool {
   maven 'maven'
 }
@@ -176,7 +176,7 @@ tool {
 
 and use the command `mvn clean install package` to build a Java project:
 
-```
+```Groovy
 stages {
         stage('Build') {
             steps {
@@ -221,7 +221,7 @@ Install the plugin `Pipeline Utility Steps`:
 
 In `Jenkinsfile`, these lines will get context from `pom.xml` of the repository:
 
-```
+```Groovy
 environment {
         ArtifactId = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
@@ -232,7 +232,7 @@ environment {
 
 and print out when running the pipeline:
 
-```
+```Groovy
 stage('Print Environment variables') {
             steps {
                 echo "Artifact ID is '${ArtifactId}'"
@@ -247,7 +247,7 @@ stage('Print Environment variables') {
 
 We will need to store the `RELEASE`/`SNAPSHOT` version every time we update the source code of java web. Here is how we do that using **Sonatype Nexus**
 
-**Setup on Nexus-Server**
+### Setup on Nexus-Server**
 
 Open `http://[Your Nexus-Server Public IPv4]:8081` on a web browser. Click `Login` in the upper-right corner.
 
@@ -314,7 +314,7 @@ Click `Generate Pipeline Script`, and we will have:
 
 Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `Nexus stage` syntax in `Jenkinsfile`:
 
-```
+``` Groovy
 stage('Publish to Nexus') {
             steps { 
                 script {
@@ -383,7 +383,7 @@ Click `Generate Pipeline Script`, and we will have:
 
 Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `Deploy stage` in `Jenkinsfile`:
 
-```
+```Groovy
 stage('Deploy to Docker') {
             steps {
                 echo 'Deploying...'
@@ -450,7 +450,7 @@ The key's randomart image is:
 
 Then, run the command `ssh-copy-id ansibleadmin@[Your Dockerhost Private IP]` to copy the public key to the `Dockerhost`, allowing us to log in to the `Dockerhost` without having to enter the password.
 
-```
+```bash
 [ansibleadmin@ip-10-0-0-237 ~]$ ssh-copy-id ansibleadmin@10.0.0.85
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/ansibleadmin/.ssh/id_rsa.pub"
 The authenticity of host '10.0.0.85 (10.0.0.85)' can't be established.
@@ -471,7 +471,7 @@ and check to make sure that only the key(s) you wanted were added.
 
 open file `hosts` in the Github repository, change the IP address under `[Dockerhost]` to `[Your Dockerhost Private IP]`
 
-```
+```text
 [dockerhost]
 10.0.0.85
 ```
@@ -495,7 +495,7 @@ Check out my playbook file on the Github repo `download-deploy.yaml`.
 
 #### Download the latest artifact from the Nexus release repo by using [Search API](https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api)
 
-```
+```Groovy
 curl -u [Nexus account]:[Nexus password] -L "http://[Your Nexus-Server Private IP]:8081/service/rest/v1/search/assets/download?sort=version&repository=[Nexus repository name]&maven.groupId=[groupID in pom.xml]&maven.artifactId=[artifactId in pom.xml]&maven.extension=[packaging in pom.xml]" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
 ```
 
