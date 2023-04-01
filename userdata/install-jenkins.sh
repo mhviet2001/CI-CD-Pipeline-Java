@@ -25,5 +25,3 @@ systemctl enable jenkins
 
 # Start Jenkins as a service:
 systemctl start jenkins
-
-# Reference: https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
