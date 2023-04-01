@@ -19,7 +19,7 @@ CI/CD pipeline with Jenkins includes these tasks:
 
 ```text
 CI-CD-Pipeline-Java-WebApp
-├─ download-deploy.yaml
+├─ playbook-download-deploy.yml
 ├─ hosts
 ├─ Jenkinsfile
 ├─ LICENSE
@@ -372,9 +372,9 @@ Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, sel
 
 - Name: select `ansible`
 Transfer Set:
-- Source files: `download-deploy.yaml, hosts`
+- Source files: `playbook-download-deploy.yml, hosts`
 - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins-Server`)
-- Exec command: ``cd playbooks/ && ansible-playbook download-deploy.yaml -i hosts``
+- Exec command: ``cd playbooks/ && ansible-playbook playbook-download-deploy.yml -i hosts``
 
 Click `Generate Pipeline Script`, and we will have:
 ![Syntax](/docs/images/generate-sshPublishOver.png)
@@ -390,10 +390,10 @@ stage('Deploy to Docker') {
                     configName: 'ansible', 
                     transfers: [
                         sshTransfer(
-                            sourceFiles: 'download-deploy.yaml, hosts',
+                            sourceFiles: 'playbook-download-deploy.yml, hosts',
                             remoteDirectory: '/playbooks',
                             cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook download-deploy.yaml -i hosts', 
+                            execCommand: 'cd playbooks/ && ansible-playbook playbook-download-deploy.yml -i hosts', 
                             execTimeout: 120000, 
                         )
                     ], 
@@ -482,7 +482,7 @@ Playbook file will instruct Ansible to perform these tasks on `Docker`:
 - Create Dockerfile to build an Apache-Tomcat image with the latest artifact.
 - Build an image & run the container.
 
-Check out my playbook file on the Github repo `download-deploy.yaml`.
+Check out my playbook file on the Github repo `playbook-download-deploy.yml`.
 
 #### Performing task on `Docker` by declaring group name [docker_host] in inventory file `hosts`
 

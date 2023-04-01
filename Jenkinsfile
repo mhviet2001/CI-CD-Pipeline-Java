@@ -65,10 +65,10 @@ pipeline {
                     configName: 'ansible',
                     transfers: [
                         sshTransfer(
-                            sourceFiles: 'download-deploy.yaml, hosts',
+                            sourceFiles: 'playbook-download-deploy.yml, hosts',
                             remoteDirectory: '/playbooks',
                             cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook download-deploy.yaml -i hosts',
+                            execCommand: 'cd playbooks/ && ansible-playbook playbook-download-deploy.yml -i hosts',
                             execTimeout: 120000,
                         )
                     ],
