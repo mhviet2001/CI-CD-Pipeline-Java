@@ -40,7 +40,6 @@ CI-CD-Pipeline-Java-WebApp
 │  ├─ install-jenkins.sh
 │  └─ install-nexus.sh
 └─ variables.tf
-
 ```
 
 ## ⚙️ Provisioning Infrastructures on AWS with Terraform
@@ -277,7 +276,7 @@ Repeat these steps above to create another repo with the name: `MyLab-SNAPSHOT` 
 Return to your `Nexus Browser` tab and the result should be like that:
 ![Nexus Browser](/docs/images/nexus-browser.png)
 
-**Setup on Jenkins-Server**
+### Setup on Jenkins-Server
 
 Our goal is to set up the Jenkins pipeline to publish the maven build artifact to the corresponding Nexus repo.
 First, we need to `Add Credentials` to access `Nexus repositories`.
@@ -487,14 +486,14 @@ Playbook file will instruct Ansible to perform these tasks on `Dockerhost`:
 
 Check out my playbook file on the Github repo `download-deploy.yaml`.
 
-##### Performing task on `Dockerhost` by declaring group name [dockerhost] in inventory file `hosts`
+#### Performing task on `Dockerhost` by declaring group name [dockerhost] in inventory file `hosts`
 
 ```YML
   hosts: dockerhost
   become: true
 ```
 
-##### Download the latest artifact from the Nexus release repo by using [Search API](https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api)
+#### Download the latest artifact from the Nexus release repo by using [Search API](https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api)
 
 ```
 curl -u [Nexus account]:[Nexus password] -L "http://[Your Nexus-Server Private IP]:8081/service/rest/v1/search/assets/download?sort=version&repository=[Nexus repository name]&maven.groupId=[groupID in pom.xml]&maven.artifactId=[artifactId in pom.xml]&maven.extension=[packaging in pom.xml]" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
@@ -511,7 +510,7 @@ In my ansible playbook, it will look like this:
           chdir: /home/ansibleadmin
 ```
 
-##### Create Dockerfile on `Dockerhost` to build an Apache-Tomcat image
+#### Create Dockerfile on `Dockerhost` to build an Apache-Tomcat image
 
 We will use the image tomcat on [Dockerhub](https://hub.docker.com/_/tomcat) as our base image. Then copy the downloaded artifact to the root folder of the tomcat web server `/usr/local/tomcat/webapps`.
 Finally, grant proper access and run the Tomcat server by `catalina.sh` script.
@@ -545,7 +544,7 @@ In the ansible playbook, this task will be like this:
                 CMD ["catalina.sh", "run"]
 ```
 
-##### Build the image and run the container in `Dockerhost`
+#### Build the image and run the container in `Dockerhost`
 
 Instead of running a shell script, using the ansible task with `force: yes` will rebuild the image, even if it already exists. (Ansible will add the `--no-cache=true` option to the `docker build` command)
 
@@ -592,14 +591,14 @@ Now, every time you change your Web app source code, just push to the GitHub rep
 
 > You can also automate the step click `Build Now` in Jenkins by going to `Configuration` in your pipeline. Select `Poll SCM` in the section `Build Trigger` and define the schedule. Click on the `?` sign to read the schedule instruction.
 
-#### Troubleshooting
+### Troubleshooting
 
 If your pipeline triggers an error, open `Console Output` of this `build #` to identify find which stage has the issue.
 ![Troubleshooting](/docs/images/troubleshoot.png)
 
 Manual perform this step on the corresponding server to troubleshoot.
 
-#### Clean up AWS Infrastructure
+### Clean up AWS Infrastructure
 
 AWS resources will cost you per hour, so please remember to clean up after you finished.
 Go to your working directory which is run `terraform` earlier, and run this command to clean up:
