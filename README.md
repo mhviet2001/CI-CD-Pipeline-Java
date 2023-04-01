@@ -247,7 +247,7 @@ stage('Print Environment variables') {
 
 We will need to store the `RELEASE`/`SNAPSHOT` version every time we update the source code of java web. Here is how we do that using **Sonatype Nexus**
 
-### Setup on Nexus-Server**
+### Setup on Nexus-Server
 
 Open `http://[Your Nexus-Server Public IPv4]:8081` on a web browser. Click `Login` in the upper-right corner.
 
