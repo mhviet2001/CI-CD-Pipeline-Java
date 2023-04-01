@@ -18,17 +18,29 @@ CI/CD pipeline with Jenkins includes these tasks:
 ## 📖 Project Structure
 
 ```text
-cicd-pipeline-java-webapp/
-├── src/main/webapp
-├── userdata/
-├── .gitignore
-├── Jenkinsfile
-├── README.md
-├── download-deploy.yaml
-├── hosts
-├── main.tf
-├── variables.tf
-└── pom.xml
+CI-CD-Pipeline-Java-WebApp
+├─ download-deploy.yaml
+├─ hosts
+├─ Jenkinsfile
+├─ LICENSE
+├─ main.tf
+├─ pom.xml
+├─ README.md
+├─ src
+│  └─ main
+│     └─ webapp
+│        ├─ css
+│        │  └─ style.css
+│        ├─ index.jsp
+│        └─ WEB-INF
+│           └─ web.xml
+├─ userdata
+│  ├─ install-ansible.sh
+│  ├─ install-docker.sh
+│  ├─ install-jenkins.sh
+│  └─ install-nexus.sh
+└─ variables.tf
+
 ```
 
 ## ⚙️ Provisioning Infrastructures on AWS with Terraform
