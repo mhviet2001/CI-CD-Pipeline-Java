@@ -84,7 +84,7 @@ resource "aws_route_table_association" "my-rtb-a" {
 resource "aws_instance" "jenkins" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name = "mhviet-key"
+  key_name = var.key_name
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   subnet_id = aws_subnet.my-subnet.id
   associate_public_ip_address = true
@@ -105,7 +105,7 @@ resource "aws_eip" "jenkins_eip" {
 resource "aws_instance" "ansible" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name = "mhviet-key"
+  key_name = var.key_name
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   subnet_id = aws_subnet.my-subnet.id
   associate_public_ip_address = true
@@ -126,7 +126,7 @@ resource "aws_eip" "ansible_eip" {
 resource "aws_instance" "nexus" {
   ami           = var.ami
   instance_type = var.instance_type_for_nexus
-  key_name = "mhviet-key"
+  key_name = var.key_name
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   subnet_id = aws_subnet.my-subnet.id
   associate_public_ip_address = true
@@ -147,7 +147,7 @@ resource "aws_eip" "nexus_eip" {
 resource "aws_instance" "docker" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name = "mhviet-key"
+  key_name = var.key_name
   vpc_security_group_ids = [aws_security_group.my-sg.id]
   subnet_id = aws_subnet.my-subnet.id
   associate_public_ip_address = true

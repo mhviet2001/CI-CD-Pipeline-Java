@@ -68,7 +68,7 @@ Default output format
 ```
 
 Copy 2 files `main.tf`, `variables.tf`, and folder `userdata/` of this Github repo to your working directory. Run the following commands to start provisioning:
-> Before running terraform, login to the AWS console and create the keypair name `ec2`. If you want to use other keypair, make sure to update this keypair name in `resource "aws_instance" {key_name}` of `main.tf`
+> Before running terraform, login to the AWS console and create the keypair name `mhviet-key`. If you want to use other keypair, make sure to update this keypair name in `resource "aws_instance" {key_name}` of `main.tf`
 
 ``` bash
 terraform init
@@ -91,7 +91,7 @@ SG with inbound ports: `22`, `443`, `80`, `8081`, `8080`
 
 ### User account and SSH Configuration
 
-All provisioned EC2 use the same keypair `ec2` which is manually created on the AWS console, you can use it to SSH remote EC2 CLI later.
+All provisioned EC2 use the same keypair `mhviet-key` which is manually created on the AWS console, you can use it to SSH remote EC2 CLI later.
 
 `Jenkins` and `Nexus` use the default user of AWS EC2: **ec2-user**. For `Ansible` and `Docker`, you will notice these configurations in [Ansible](/userdata/install-ansible.sh) and [Docker](/userdata/install-docker.sh) userdata scripts:
 
