@@ -72,12 +72,13 @@ Copy 2 files `main.tf`, `variables.tf`, and folder `userdata/` of this Github re
 
 ``` bash
 terraform init
+terraform plan
 terraform apply --auto-approve
 ```
 
 > Please be aware that the Nexus use `instance type: t2.medium` which doesn't qualify under [AWS free tier](https://aws.amazon.com/free/)
 
-You can change `CIDRs`, `instance type`, `AMI`, and `Security Group ports` in `variables.tf`. Scripts in `userdata/` for installing [Jenkins](/userdata/install-jenkins.sh), [Nexus](/userdata/install-nexus.sh), [Ansible](/userdata/install-ansible.sh), [Docker](/userdata/install-docker.sh).
+You can change `CIDRs`, `Instance Type`, `AMI`, `Security Group ports` and `Key Pair` in `variables.tf`. Scripts in `userdata/` for installing [Jenkins](/userdata/install-jenkins.sh), [Nexus](/userdata/install-nexus.sh), [Ansible](/userdata/install-ansible.sh), [Docker](/userdata/install-docker.sh).
 
 > These installing scripts are written for AMI `Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type`.
 
