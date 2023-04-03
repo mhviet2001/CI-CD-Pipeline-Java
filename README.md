@@ -471,7 +471,7 @@ and check to make sure that only the key(s) you wanted were added.
 open file `hosts` in the Github repository, change the IP address under `[Docker]` to `[Your Docker Private IP]`
 
 ```text
-[docker_host]
+[docker]
 10.0.0.85
 ```
 
@@ -485,10 +485,10 @@ Playbook file will instruct Ansible to perform these tasks on `Docker`:
 
 Check out my playbook file on the Github repo `playbook.yml`.
 
-#### Performing task on `Docker` by declaring group name [docker_host] in inventory file `hosts`
+#### Performing task on `Docker` by declaring group name [docker] in inventory file `hosts`
 
 ```YML
-  hosts: docker_host
+  hosts: docker
   become: true
 ```
 
