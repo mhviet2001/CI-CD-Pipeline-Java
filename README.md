@@ -19,7 +19,7 @@ CI/CD pipeline with Jenkins includes these tasks:
 
 ```text
 CI-CD-Pipeline-Java-WebApp
-├─ playbook-download-deploy.yml
+├─ playbook.yml
 ├─ hosts
 ├─ Jenkinsfile
 ├─ LICENSE
@@ -373,9 +373,9 @@ Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, sel
 
 - Name: select `ansible`
 Transfer Set:
-- Source files: `playbook-download-deploy.yml, hosts`
+- Source files: `playbook.yml, hosts`
 - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins-Server`)
-- Exec command: ``cd playbooks/ && ansible-playbook playbook-download-deploy.yml -i hosts``
+- Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i hosts``
 
 Click `Generate Pipeline Script`, and we will have:
 ![Syntax](/docs/images/generate-sshPublishOver.png)
@@ -391,10 +391,10 @@ stage('Deploy to Docker') {
                     configName: 'ansible', 
                     transfers: [
                         sshTransfer(
-                            sourceFiles: 'playbook-download-deploy.yml, hosts',
+                            sourceFiles: 'playbook.yml, hosts',
                             remoteDirectory: '/playbooks',
                             cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook playbook-download-deploy.yml -i hosts', 
+                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i hosts', 
                             execTimeout: 120000, 
                         )
                     ], 
@@ -483,7 +483,7 @@ Playbook file will instruct Ansible to perform these tasks on `Docker`:
 - Create Dockerfile to build an Apache-Tomcat image with the latest artifact.
 - Build an image & run the container.
 
-Check out my playbook file on the Github repo `playbook-download-deploy.yml`.
+Check out my playbook file on the Github repo `playbook.yml`.
 
 #### Performing task on `Docker` by declaring group name [docker_host] in inventory file `hosts`
 
