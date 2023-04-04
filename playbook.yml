@@ -22,7 +22,7 @@
 
     - name: Build an image
       docker_image:
-        name: mylab-image
+        name: mylab-image 
         path: /home/ansibleadmin
         force: yes
         state: present
