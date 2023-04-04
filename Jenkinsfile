@@ -34,14 +34,14 @@ pipeline {
                     [
                         [
                             artifactId: "${ArtifactId}",
-                            classifier: '',
+                            classifier: '', 
                             file: "target/${ArtifactId}-${Version}.war",
                             type: 'war'
                         ]
                     ],
-                    credentialsId: 'nexus',
+                    credentialsId: 'Nexus',
                     groupId: "${GroupId}",
-                    nexusUrl: '52.76.107.248:8081',
+                    nexusUrl: '13.215.12.135:8081',
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: "${NexusRepo}",
