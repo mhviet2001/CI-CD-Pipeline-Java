@@ -19,11 +19,11 @@ CI/CD pipeline with Jenkins includes these tasks:
 
 ```text
 CI-CD-Pipeline-Java-WebApp
-├─ playbook.yml
 ├─ hosts
 ├─ Jenkinsfile
 ├─ LICENSE
 ├─ main.tf
+├─ playbook.yml
 ├─ pom.xml
 ├─ README.md
 ├─ src
@@ -32,6 +32,8 @@ CI-CD-Pipeline-Java-WebApp
 │        ├─ css
 │        │  └─ style.css
 │        ├─ index.jsp
+│        ├─ script
+│        │  └─ script.js
 │        └─ WEB-INF
 │           └─ web.xml
 ├─ userdata
