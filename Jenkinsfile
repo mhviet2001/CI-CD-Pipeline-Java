@@ -67,7 +67,7 @@ pipeline {
                             transfers: [
                                 sshTransfer(
                                     cleanRemote: false,
-                                    execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i hosts',
+                                    execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt',
                                     execTimeout: 120000,
                                     flatten: false,
                                     makeEmptyDirs: false,
@@ -76,7 +76,7 @@ pipeline {
                                     remoteDirectory: '/playbooks',
                                     remoteDirectorySDF: false,
                                     removePrefix: '',
-                                    sourceFiles: 'playbook.yml, hosts'
+                                    sourceFiles: 'playbook.yml, inventory.txt'
                                 )
                             ],
                             usePromotionTimestamp: false,

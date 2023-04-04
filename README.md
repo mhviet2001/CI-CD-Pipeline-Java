@@ -19,7 +19,7 @@ CI/CD pipeline with Jenkins includes these tasks:
 
 ```text
 CI-CD-Pipeline-Java-WebApp
-├─ hosts
+├─ inventory.txt
 ├─ Jenkinsfile
 ├─ LICENSE
 ├─ main.tf
@@ -375,9 +375,9 @@ Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, sel
 
 - Name: select `ansible`
 Transfer Set:
-- Source files: `playbook.yml, hosts`
+- Source files: `playbook.yml, inventory.txt`
 - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins-Server`)
-- Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i hosts``
+- Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt``
 
 Click `Generate Pipeline Script`, and we will have:
 ![Syntax](/docs/images/generate-sshPublishOver.png)
@@ -393,10 +393,10 @@ stage('Deploy to Docker') {
                     configName: 'ansible', 
                     transfers: [
                         sshTransfer(
-                            sourceFiles: 'playbook.yml, hosts',
+                            sourceFiles: 'playbook.yml, inventory.txt',
                             remoteDirectory: '/playbooks',
                             cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i hosts', 
+                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt', 
                             execTimeout: 120000, 
                         )
                     ], 
@@ -470,7 +470,7 @@ and check to make sure that only the key(s) you wanted were added.
 
 ### Update ansible inventory
 
-open file `hosts` in the Github repository, change the IP address under `[Docker]` to `[Your Docker Private IP]`
+open file `inventory.txt` in the Github repository, change the IP address under `[Docker]` to `[Your Docker Private IP]`
 
 ```text
 [docker]
@@ -487,7 +487,7 @@ Playbook file will instruct Ansible to perform these tasks on `Docker`:
 
 Check out my playbook file on the Github repo `playbook.yml`.
 
-#### Performing task on `Docker` by declaring group name [docker] in inventory file `hosts`
+#### Performing task on `Docker` by declaring group name [docker] in inventory file `inventory.txt`
 
 ```YML
   hosts: docker
