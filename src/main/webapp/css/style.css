@@ -1,108 +1,92 @@
-/* Set background color and font styles for the body */
-body {
-    background-color: #f5f5f5;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+/* display background color black on navbar scroll */
+.navbarScroll.navbarDark {
+    background-color: black;
 }
 
-/* Style the navbar */
-.navbar {
-    background-color: #333;
-    border: none;
-    border-radius: 0;
-    margin-bottom: 0;
+/* hero background image */
+.bgimage {
+    height: 100vh;
+    background: url('images/heroImage.jpeg');
+    background-size: cover;
+    position: relative;
 }
 
-.navbar-brand {
-    font-size: 24px;
-    font-weight: bold;
+/* text css above hero image*/
+.hero_title {
+    font-size: 4.5rem;
 }
 
-/* Style the links in the navbar */
-.navbar-nav>li>a {
-    color: #fff;
+.hero_desc {
+    font-size: 2rem;
 }
 
-/* Style the form in the navbar */
-.navbar-form {
-    margin-right: 0;
-}
-
-/* Style the jumbotron */
-.jumbotron {
-    background-color: #e5ff00;
-    padding: 80px 30px;
-    margin-bottom: 30px;
-    border-radius: 0;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.jumbotron h1 {
-    font-size: 48px;
-    font-weight: bold;
+.hero-text {
     text-align: center;
-    margin-bottom: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
 }
 
-.jumbotron p {
-    font-size: 20px;
+/* spacing on all sections */
+/* #about, #services, #portfolio, #contact {
+    margin-top: 4rem;
+    padding-top: 4rem;
+} */
+#contact {
+    padding-bottom: 4rem;
+}
+
+/* about section image css */
+.imageAboutPage {
+    width: 100%;
+}
+
+/* services section css */
+.servicesText.card {
+    height: 280px;
+    cursor: pointer;
+}
+
+.servicesIcon {
+    font-size: 36px;
     text-align: center;
+    width: 100%;
 }
 
-/* Style the buttons */
-.btn-primary {
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-    background-color: #286090;
-    border-color: #204d74;
-}
-
-.btn-success {
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open .dropdown-toggle.btn-success {
-    background-color: #449d44;
-    border-color: #398439;
-}
-
-/* Style the columns */
-.col-md-4 {
-    padding: 15px;
+.card-title {
     text-align: center;
 }
 
-.col-md-4 h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 0;
+.card:hover .servicesIcon {
+    color: #008000;
 }
 
-.col-md-4 p {
-    font-size: 18px;
-    margin-bottom: 15px;
+.servicesText:hover {
+    border: 1px solid #008000;
 }
 
-/* Style the footer */
-footer {
+/* social media icons styling */
+.social-icons {
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.fa-facebook:hover,
+.fa-instagram:hover,
+.fa-twitter:hover,
+.fa-linkedin:hover,
+.fa-twitch:hover {
+    color: #008000;
+}
+
+.fab {
+    color: #000000;
+}
+
+/* footer styling */
+#footer {
+    background-color: #808080;
     text-align: center;
-    font-size: 14px;
-    color: #999;
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid #ccc;
 }
