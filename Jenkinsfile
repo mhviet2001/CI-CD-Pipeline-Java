@@ -34,7 +34,7 @@ pipeline {
                     [
                         [
                             artifactId: "${ArtifactId}",
-                            classifier: '', 
+                            classifier: '',
                             file: "target/${ArtifactId}-${Version}.war",
                             type: 'war'
                         ]
@@ -60,22 +60,31 @@ pipeline {
         stage('Deploy to Docker') {
             steps {
                 echo 'Deploying...'
-                sshPublisher(publishers:
-                [sshPublisherDesc(
-                    configName: 'ansible',
-                    transfers: [
-                        sshTransfer(
-                            sourceFiles: 'playbook.yml, hosts',
-                            remoteDirectory: '/playbooks',
-                            cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i hosts',
-                            execTimeout: 120000,
+                sshPublisher(
+                    publishers:[
+                        sshPublisherDesc(
+                            configName: 'Ansible',
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+                                    execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i hosts',
+                                    execTimeout: 120000,
+                                    flatten: false,
+                                    makeEmptyDirs: false,
+                                    noDefaultExcludes: false,
+                                    patternSeparator: '[, ]+',
+                                    remoteDirectory: '/playbooks',
+                                    remoteDirectorySDF: false,
+                                    removePrefix: '',
+                                    sourceFiles: 'playbook.yml, hosts'
+                                )
+                            ],
+                            usePromotionTimestamp: false,
+                            useWorkspaceInPromotion: false,
+                            verbose: false
                         )
-                    ],
-                    usePromotionTimestamp: false,
-                    useWorkspaceInPromotion: false,
-                    verbose: false)
-                ])
+                    ]
+                )
             }
         }
     }
