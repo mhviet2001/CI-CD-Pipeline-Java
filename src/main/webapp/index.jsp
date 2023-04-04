@@ -64,7 +64,7 @@
             <h1 class="text-center">About Me</h1>
             <div class="row mt-4">
                 <div class="col-lg-4">
-                    <img src="images/about.jpeg" class="imageAboutPage" alt="">
+                    <img src="images/about.png" class="imageAboutPage" alt="">
                 </div>
 
                 <div class="col-lg-8">
