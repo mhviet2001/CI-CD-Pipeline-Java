@@ -319,29 +319,29 @@ Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `N
 
 ``` Groovy
 stage('Publish to Nexus') {
-            steps { 
-                script {
-                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "MyLab-SNAPSHOT" : "MyLab-RELEASE"
-                    
-                    nexusArtifactUploader artifacts: 
-                    [
-                        [
-                            artifactId: "${ArtifactId}", 
-                            classifier: '', 
-                            file: "target/${ArtifactId}-${Version}.war", 
-                            type: 'war'
-                        ]
-                    ], 
-                    credentialsId: 'Nexus', 
-                    groupId: "${GroupId}", 
-                    nexusUrl: '10.0.0.48:8081', 
-                    nexusVersion: 'nexus3', 
-                    protocol: 'http', 
-                    repository: "${NexusRepo}", 
-                    version: "${Version}"
-                }
-            }
+    steps {
+        script {
+            /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
+            def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
+            nexusArtifactUploader artifacts:
+            [
+                [
+                    artifactId: "${ArtifactId}",
+                    classifier: '',
+                    file: "target/${ArtifactId}-${Version}.war",
+                    type: 'war'
+                ]
+            ],
+            credentialsId: 'Nexus',
+            groupId: "${GroupId}",
+            nexusUrl: '13.215.12.135:8081',
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            repository: "${NexusRepo}",
+            version: "${Version}"
         }
+    }
+}
 ```
 
 >`def NexusRepo = Version.endsWith("SNAPSHOT") ? "MyLab-SNAPSHOT" : "MyLab-RELEASE"` used to select `Nexus repo` based on `version` in the `pom.xml` file.
@@ -378,7 +378,7 @@ Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, sel
 - Name: select `Ansible`
 Transfer Set:
 - Source files: `playbook.yml, inventory.txt`
-- Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins-Server`)
+- Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins`)
 - Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt``
 
 Click `Generate Pipeline Script`, and we will have:
