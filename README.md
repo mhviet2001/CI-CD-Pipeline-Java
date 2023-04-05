@@ -487,7 +487,7 @@ open file `inventory.txt` in the Github repository, change the IP address under 
 
 ```text
 [docker]
-10.0.0.85
+10.0.0.190
 ```
 
 ### Create ansible-playbook
@@ -516,12 +516,10 @@ curl -u [Nexus account]:[Nexus password] -L "http://[Your Nexus-Server Private I
 In my ansible playbook, it will look like this:
 
 ```YML
-...
-  tasks:
-      - name: Download the war file
-        shell: 'curl -u admin:admin -L "http://10.0.0.48:8081/service/rest/v1/search/assets/download?sort=version&repository=MyLab-RELEASE&maven.groupId=com.mylab&maven.artifactId=MyLab&maven.extension=war" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
-        args:
-          chdir: /home/ansibleadmin
+- name: Download the war file
+  shell: 'curl -u admin:admin -L "http://10.0.0.231:8081/service/rest/v1/search/assets/download?sort=version&repository=MyLab-RELEASE&maven.groupId=com.mylab&maven.artifactId=MyLab&maven.extension=war" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
+  args:
+    chdir: /home/ansibleadmin
 ```
 
 #### Create Dockerfile on `Docker` to build an Apache-Tomcat image
@@ -545,7 +543,6 @@ In the ansible playbook, this task will be like this:
 
 ```YAML
   tasks:
-    ...
     - name: Create Dockerfile with content
       copy:
         dest: /home/ansibleadmin/Dockerfile
@@ -564,7 +561,6 @@ Instead of running a shell script, using the ansible task with `force: yes` will
 
 ```YAML
   tasks:
-    ...
     - name: Build an image
       docker_image:
         name: mylab-image
@@ -577,7 +573,6 @@ For running a container, using the ansible task with `recreate: yes` will ensure
 
 ```YAML
   tasks:
-    ...
     - name: Run the container
       docker_container:
         name: mylab-container
