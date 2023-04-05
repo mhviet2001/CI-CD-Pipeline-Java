@@ -380,6 +380,8 @@ Transfer Set:
 - Source files: `playbook.yml, inventory.txt`
 - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins`)
 - Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt``
+  
+![Publish Over SSH](/docs/images/sshPublishOver.png)
 
 Click `Generate Pipeline Script`, and we will have:
 ![Syntax](/docs/images/generate-sshPublishOver.png)
@@ -388,26 +390,35 @@ Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `D
 
 ```Groovy
 stage('Deploy to Docker') {
-            steps {
-                echo 'Deploying...'
-                sshPublisher(publishers: 
-                [sshPublisherDesc(
-                    configName: 'Ansible', 
+    steps {
+        echo 'Deploying...'
+        sshPublisher(
+            publishers: [
+                sshPublisherDesc(
+                    configName: 'Ansible',
                     transfers: [
                         sshTransfer(
-                            sourceFiles: 'playbook.yml, inventory.txt',
-                            remoteDirectory: '/playbooks',
                             cleanRemote: false,
-                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt', 
-                            execTimeout: 120000, 
+                            execCommand: 'cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt',
+                            execTimeout: 120000,
+                            flatten: false,
+                            makeEmptyDirs: false,
+                            noDefaultExcludes: false,
+                            patternSeparator: '[, ]+',
+                            remoteDirectory: '/playbooks',
+                            remoteDirectorySDF: false,
+                            removePrefix: '',
+                            sourceFiles: 'playbook.yml, inventory.txt'
                         )
-                    ], 
-                    usePromotionTimestamp: false, 
-                    useWorkspaceInPromotion: false, 
-                    verbose: false)
-                ])
-            }
-        }
+                    ],
+                    usePromotionTimestamp: false,
+                    useWorkspaceInPromotion: false,
+                    verbose: false
+                )
+            ]
+        )
+    }
+}
 ```
 
 ✌️ Our [Jenkinsfile](./Jenkinsfile) is completed!
