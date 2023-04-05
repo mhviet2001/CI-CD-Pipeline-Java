@@ -4,7 +4,7 @@
   <groupId>com.mylab</groupId>
   <artifactId>MyLab</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>MyLab</name>
   <url>http://maven.apache.org</url>
   <dependencies>
