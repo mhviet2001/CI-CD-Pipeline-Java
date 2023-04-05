@@ -432,7 +432,7 @@ Remote SSH to `Ansible` with account **ansibleadmin**, password **ansibleadmin**
 ``` bash
 ssh ansibleadmin@[Your Ansible Public IP]
 ...
-ansibleadmin@52.91.160.84's password:
+ansibleadmin@13.213.140.9's password:
 ```
 
 Generate ssh keypair by running the command `ssh-keygen`
