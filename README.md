@@ -128,17 +128,19 @@ Open `http://[Your Jenkins-Server Public IPv4]:8080` on web browser
 ![Jenkins Login](/docs/images/jenkins-login.png)
 
 Follow the instructions to get the initial Administrator password by run
-`sudo cat /var/lib/jenkins/secrets/initialAdminPassword` on Jenkins-server CLI.
+`sudo cat /var/lib/jenkins/secrets/initialAdminPassword` on Jenkins CLI.
 
 Install suggested plugins for Jenkins
 ![Suggested Plugins](/docs/images/suggested-plugins.png)
+
+![Install Suggested Plugins](/docs/images/jenkins-install-suggest-plugin.png)
 
 After installation, create your Jenkins account and domain configuration. We can start using Jenkins
 ![Jenkins Ready](/docs/images/jenkins-ready.png)
 
 ### Create job
 
-Click `+ New Item` or `Create a job`, enter the name (**Java Website**) and choose `Pipeline`. Then click `OK`:
+Click `+ New Item` or `Create a job`, enter the name (**Java-Website**) and choose `Pipeline`. Then click `OK`:
 ![Create Pipeline](/docs/images/create-pipeline.png)
 
 Scroll down to the `Pipeline` section.
@@ -171,7 +173,7 @@ These lines below in Jenkinsfile will configure pipeline install Maven (`maven` 
 
 ```Groovy
 tool {
-  maven 'maven'
+  maven 'Maven'
 }
 ```
 
