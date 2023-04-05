@@ -61,7 +61,7 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 sshPublisher(
-                    publishers:[
+                    publishers: [
                         sshPublisherDesc(
                             configName: 'Ansible',
                             transfers: [
