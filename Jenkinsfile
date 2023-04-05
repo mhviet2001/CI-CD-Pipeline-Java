@@ -2,7 +2,7 @@
 pipeline {
     agent any
     tools {
-        maven 'maven'
+        maven 'Maven'
     }
     environment {
         /* groovylint-disable-next-line UnnecessaryGetter */
