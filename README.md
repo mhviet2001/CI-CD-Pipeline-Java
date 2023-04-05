@@ -438,7 +438,7 @@ ansibleadmin@52.91.160.84's password:
 Generate ssh keypair by running the command `ssh-keygen`
 
 ``` bash
-[ansibleadmin@ip-10-0-0-237 ~]$ ssh-keygen
+[ansibleadmin@ip-10-0-0-59 ~]$ ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/ansibleadmin/.ssh/id_rsa): 
 Created directory '/home/ansibleadmin/.ssh'.
@@ -447,7 +447,7 @@ Enter same passphrase again:
 Your identification has been saved in /home/ansibleadmin/.ssh/id_rsa.
 Your public key has been saved in /home/ansibleadmin/.ssh/id_rsa.pub.
 The key fingerprint is:
-SHA256:LwV0cZlxt2qyX7zu6uVygLfrnXQfDNDK0PIeCNAshpg ansibleadmin@ip-10-0-0-237.ec2.internal
+SHA256:LwV0cZlxt2qyX7zu6uVygLfrnXQfDNDK0PIeCNAshpg ansibleadmin@ip-10-0-0-59.ec2.internal
 The key's randomart image is:
 +---[RSA 2048]----+
 |  o ..o . o.o+. .|
@@ -465,7 +465,7 @@ The key's randomart image is:
 Then, run the command `ssh-copy-id ansibleadmin@[Your Docker Private IP]` to copy the public key to the `Docker`, allowing us to log in to the `Docker` without having to enter the password.
 
 ```bash
-[ansibleadmin@ip-10-0-0-237 ~]$ ssh-copy-id ansibleadmin@10.0.0.85
+[ansibleadmin@ip-10-0-0-59 ~]$ ssh-copy-id ansibleadmin@10.0.0.85
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/ansibleadmin/.ssh/id_rsa.pub"
 The authenticity of host '10.0.0.85 (10.0.0.85)' can't be established.
 ECDSA key fingerprint is SHA256:Zghtxh+5N5xRs4CgyXm7WEobMD18MF5bVhDLOE2EqTg.
