@@ -285,7 +285,7 @@ First, we need to `Add Credentials` to access `Nexus repositories`.
 - Kind: `Username with password`
 - Username: **admin**
 - Password: **admin**
-- ID: **nexus**
+- ID: **Nexus**
 
 ![Nexus Credential](/docs/images/nexus-credential.png)
 
@@ -330,7 +330,7 @@ stage('Publish to Nexus') {
                             type: 'war'
                         ]
                     ], 
-                    credentialsId: 'nexus', 
+                    credentialsId: 'Nexus', 
                     groupId: "${GroupId}", 
                     nexusUrl: '10.0.0.48:8081', 
                     nexusVersion: 'nexus3', 
@@ -355,7 +355,7 @@ Go to `Manage Jenkins` > `Plugin Manager`, search `Publish Over SSH` plugin on J
 
 After installing successfully, go to `Manage Jenkins` > `Configure System`. Scroll down to the bottom at section **SSH Servers**, click `Add`:
 
-- Name: **ansible**
+- Name: **Ansible**
 - Hostname: **[Your Ansible Private IP]**
 - Username: **ansibleadmin**
 - Remote Directory: **/home/ansibleadmin**
@@ -373,7 +373,7 @@ Click `Apply` and `Save`.
 
 Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, select `Pipeline Syntax` > `Snippet Generator` to generate the syntax of `Jenkinsfile`. Choose `Sample Step` is `sshPublisher: Send build artifacts over SSH`.
 
-- Name: select `ansible`
+- Name: select `Ansible`
 Transfer Set:
 - Source files: `playbook.yml, inventory.txt`
 - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins-Server`)
@@ -390,7 +390,7 @@ stage('Deploy to Docker') {
                 echo 'Deploying...'
                 sshPublisher(publishers: 
                 [sshPublisherDesc(
-                    configName: 'ansible', 
+                    configName: 'Ansible', 
                     transfers: [
                         sshTransfer(
                             sourceFiles: 'playbook.yml, inventory.txt',
