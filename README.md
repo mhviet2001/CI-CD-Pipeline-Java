@@ -86,11 +86,11 @@ You can change `CIDRs`, `Instance Type`, `AMI`, `Security Group ports` and `Key 
 
 ### Created AWS Resources
 
-4 EC2 with public IP addressed & internet connectivity.
+4 EC2 with Public IPv4 address and Elastic IP.
 ![EC2](/docs/images/terraform-provisioned.png)
 
-SG with inbound ports: `22`, `443`, `80`, `8081`, `8080`
-> You can create a specific SG with the necessary ports for each EC2 instance instead of combining these ports in 1 SG.
+Security groups with inbound ports: `22`, `443`, `80`, `8081`, `8080`
+> You can create a specific Security groups with the necessary ports for each EC2 instance instead of combining these ports in 1 Security groups.
 
 ### User account and SSH Configuration
 
