@@ -300,7 +300,7 @@
             <div class="row mt-4">
                 <div class="col-lg-6">
                     <!-- to edit google map goto https://www.embed-map.com type your location, generate html code and copy the html  -->
-                    <div style="max-width:100%;list-style:none; transition: none;overflow:hidden;width:500px;height:500px;">
+                    <div style="max-width:100%;list-style:none; transition: none;overflow:hidden;width:600px;height:500px;">
                         <div id="google-maps-display" style="height:100%; width:100%;max-width:100%;"><iframe
                                 style="height:100%;width:100%;border:0;" frameborder="0"
                                 src="https://www.google.com/maps/embed/v1/place?q=74+Dao+Su+Tich,+Phuoc+Kien,+Nha+Be,+Ho+Chi+Minh+City,+Vietnam&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
