@@ -300,19 +300,20 @@
             <div class="row mt-4">
                 <div class="col-lg-6">
                     <!-- to edit google map goto https://www.embed-map.com type your location, generate html code and copy the html  -->
-                    <div style="overflow:hidden;max-width:100%;width:600px;height:500px;">
-                        <div id="canvas-for-googlemap" style="height:100%; width:100%;max-width:100%;">
-                            <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                src="https://www.google.com/maps/embed/v1/place?q=74,+đường+Đào+Sư+Tích,+phường+Phước+Kiển,+huyện+Nhà+Bè,+thành+phố+Hồ+Chí+Minh&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-                            </iframe>
+                    <div style="max-width:100%;list-style:none; transition: none;overflow:hidden;width:500px;height:500px;">
+                        <div id="google-maps-display" style="height:100%; width:100%;max-width:100%;"><iframe
+                                style="height:100%;width:100%;border:0;" frameborder="0"
+                                src="https://www.google.com/maps/embed/v1/place?q=74+Dao+Su+Tich,+Phuoc+Kien,+Nha+Be,+Ho+Chi+Minh+City,+Vietnam&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"></iframe>
                         </div>
-                        <a class="googlemaps-made" href="https://www.bootstrapskins.com/themes"
-                            id="make-map-data">premium bootstrap themes</a>
+                        <a class="my-codefor-googlemap" href="https://www.bootstrapskins.com/themes" id="enable-map-data">premium bootstrap themes</a>
                         <style>
-                            #canvas-for-googlemap img {
-                                max-height: none;
+                            #google-maps-display img.text-marker {
                                 max-width: none !important;
                                 background: none !important;
+                            }
+                    
+                            img {
+                                max-width: none
                             }
                         </style>
                     </div>
