@@ -300,13 +300,14 @@
             <div class="row mt-4">
                 <div class="col-lg-6">
                     <!-- to edit google map goto https://www.embed-map.com type your location, generate html code and copy the html  -->
-                    <div style="overflow:hidden;max-width:100%;width:500px;height:500px;">
+                    <div style="overflow:hidden;max-width:100%;width:600px;height:500px;">
                         <div id="canvas-for-googlemap" style="height:100%; width:100%;max-width:100%;">
                             <iframe style="height:100%;width:100%;border:0;" frameborder="0"
                                 src="https://www.google.com/maps/embed/v1/place?q=74,+đường+Đào+Sư+Tích,+phường+Phước+Kiển,+huyện+Nhà+Bè,+thành+phố+Hồ+Chí+Minh&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
                             </iframe>
                         </div>
-                        <a class="googlemaps-made" href="https://www.bootstrapskins.com/themes" id="make-map-data">premium bootstrap themes</a>
+                        <a class="googlemaps-made" href="https://www.bootstrapskins.com/themes"
+                            id="make-map-data">premium bootstrap themes</a>
                         <style>
                             #canvas-for-googlemap img {
                                 max-height: none;
