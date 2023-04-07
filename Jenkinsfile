@@ -101,7 +101,7 @@ pipeline {
     post {
         always {
             script {
-                def slackToken = 'your-slack-token'
+                def slackToken = 'Slack'
                 def slackChannel = '#general'
 
                 def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
@@ -109,7 +109,7 @@ pipeline {
                 def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
                 def message = "New commit by ${commitAuthor}: ${commitMessage} \
-                - <https://github.com/<your-repo>/commit/${commitHash}|${commitHash}>"
+                - <https://github.com/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
                 slackSend(token: slackToken, channel: slackChannel, message: message)
             }
         }
