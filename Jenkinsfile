@@ -94,7 +94,7 @@ pipeline {
         }
         stage('Slack it') {
             steps {
-                slackSend channel: '#Jenkins', message: 'Hello, world'
+                slackSend channel: '#general', message: 'Hello, world'
             }
         }
     }
