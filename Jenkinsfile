@@ -96,14 +96,21 @@ pipeline {
                 )
             }
         }
-        stage('Notify Slack') {
-            steps {
-                script {
-                    def buildResult = currentBuild.result
-                    def color = buildResult == 'SUCCESS' ? 'good' : 'danger'
-                    /* groovylint-disable-next-line LineLength */
-                    slackSend(channel: '#general', color: color, message: "Build ${buildResult}: A new commit has been made!")
-                }
+    }
+
+    post {
+        always {
+            script {
+                def slackToken = credentials('Slack')
+                def slackChannel = '#general'
+
+                def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+                def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+
+                def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/<your-repo>/commit/${commitHash}|${commitHash}>"
+                
+                slackSend(tokenCredentialId: slackToken, channel: slackChannel, message: message)
             }
         }
     }
