@@ -25,11 +25,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'my-credential',
-                                                usernameVariable: 'USERNAME',
-                                                passwordVariable: 'PASSWORD')]) {
-                    sh './build.sh $USERNAME $PASSWORD'
-                                                }
                 sh 'mvn clean install package'
             }
         }
@@ -106,16 +101,16 @@ pipeline {
     post {
         always {
             script {
-                def slackToken = credentials('Slack')
+                def slackToken = 'your-slack-token'
                 def slackChannel = '#general'
 
                 def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                 def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
                 def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
-                def message = "New commit by ${commitAuthor}: ${commitMessage} -\
-                <https://github.com/<your-repo>/commit/${commitHash}|${commitHash}>"
-                slackSend(tokenCredentialId: slackToken, channel: slackChannel, message: message)
+                def message = "New commit by ${commitAuthor}: ${commitMessage} \
+                - <https://github.com/<your-repo>/commit/${commitHash}|${commitHash}>"
+                slackSend(token: slackToken, channel: slackChannel, message: message)
             }
         }
     }
