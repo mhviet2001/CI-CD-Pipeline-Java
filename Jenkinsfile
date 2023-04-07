@@ -8,9 +8,7 @@ pipeline {
         ansiColor('xterm')
     }
     environment {
-
         ANSIBLE_FORCE_COLOR = true
-
         /* groovylint-disable-next-line UnnecessaryGetter */
         ArtifactId = readMavenPom().getArtifactId()
         /* groovylint-disable-next-line UnnecessaryGetter */
