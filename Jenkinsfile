@@ -94,19 +94,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            script {
-                def gitCommit = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %s"').trim()
-                env.GIT_COMMIT_MESSAGE = gitCommit
-
-                def status = currentBuild.result == 'SUCCESS' ? 'succeeded' : 'failed'
-                /* groovylint-disable-next-line DuplicateStringLiteral */
-                def color = currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
-                /* groovylint-disable-next-line LineLength */
-                slackSend channel: '#general', tokenCredentialId: 'Slack', color: color, message: "Build ${status} - New commit: ${env.GIT_COMMIT_MESSAGE}"
-
-            }
-        }
-    }
 }
