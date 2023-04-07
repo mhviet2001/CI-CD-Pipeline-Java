@@ -92,20 +92,20 @@ pipeline {
                 )
             }
         }
-    }
-    post {
-        always {
-            script {
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def commit = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def author = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def message = sh(script: 'git log -1 --pretty=format:"%s"', returnStdout: true).trim()
 
-                slackSend channel: '#general',
-                        color: '#36a64f',
-                        message: "New commit by ${author}: ${message} (${commit})"
+        stage('Retrieve Commit Information') {
+            steps {
+                script {
+                    /* groovylint-disable-next-line VariableTypeRequired */
+                    def gitCommit = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %s"').trim()
+                    env.GIT_COMMIT_MESSAGE = gitCommit
+                }
+            }
+        }
+        stage('Send Message to Slack') {
+            steps {
+                /* groovylint-disable-next-line LineLength */
+                slackSend channel: '#channel-name', tokenCredentialId: 'jenkins-slack-token', color: 'good', message: "New commit: ${env.GIT_COMMIT_MESSAGE}"
             }
         }
     }
