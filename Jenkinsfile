@@ -104,8 +104,10 @@ pipeline {
         }
         stage('Send Message to Slack') {
             steps {
+                def status = currentBuild.result == 'SUCCESS' ? 'succeeded' : 'failed'
+                def color = currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
                 /* groovylint-disable-next-line LineLength */
-                slackSend channel: '#channel-name', tokenCredentialId: 'jenkins-slack-token', color: 'good', message: "New commit: ${env.GIT_COMMIT_MESSAGE}"
+                slackSend channel: '#general', tokenCredentialId: 'Slack', color: color, message: "Build ${status} - New commit: ${env.GIT_COMMIT_MESSAGE}"
             }
         }
     }
