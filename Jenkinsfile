@@ -30,6 +30,27 @@ pipeline {
                 echo 'Testing...'
             }
         }
+
+        stage('Retrieve Commit Information') {
+            steps {
+                script {
+                    /* groovylint-disable-next-line VariableTypeRequired */
+                    def gitCommit = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %s"').trim()
+                    env.GIT_COMMIT_MESSAGE = gitCommit
+                }
+            }
+        }
+        stage('Send Message to Slack') {
+            steps {
+                script {
+                    def status = currentBuild.result == 'SUCCESS' ? 'succeeded' : 'failed'
+                    def color = currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
+                    /* groovylint-disable-next-line LineLength */
+                    slackSend channel: '#general', tokenCredentialId: 'Slack', color: color, message: "Build ${status} - New commit: ${env.GIT_COMMIT_MESSAGE}"
+                }
+            }
+        }
+
         stage('Publish to Nexus') {
             steps {
                 script {
@@ -90,26 +111,6 @@ pipeline {
                         )
                     ]
                 )
-            }
-        }
-
-        stage('Retrieve Commit Information') {
-            steps {
-                script {
-                    /* groovylint-disable-next-line VariableTypeRequired */
-                    def gitCommit = sh(returnStdout: true, script: 'git log -1 --pretty=format:"%h - %an, %s"').trim()
-                    env.GIT_COMMIT_MESSAGE = gitCommit
-                }
-            }
-        }
-        stage('Send Message to Slack') {
-            steps {
-                script {
-                    def status = currentBuild.result == 'SUCCESS' ? 'succeeded' : 'failed'
-                    def color = currentBuild.result == 'SUCCESS' ? 'good' : 'danger'
-                    /* groovylint-disable-next-line LineLength */
-                    slackSend channel: '#general', tokenCredentialId: 'Slack', color: color, message: "Build ${status} - New commit: ${env.GIT_COMMIT_MESSAGE}"
-                }
             }
         }
     }
