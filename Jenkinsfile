@@ -108,8 +108,7 @@ pipeline {
                 def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
                 def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
-                def message = "New commit by ${commitAuthor}: ${commitMessage} \
-                - <https://github.com/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
+                def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
                 slackSend(token: slackToken, channel: slackChannel, message: message)
             }
         }
