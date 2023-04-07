@@ -92,20 +92,20 @@ pipeline {
                 )
             }
         }
-        post {
-            always {
-                script {
-                    /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                    def commit = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                    def author = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
-                    /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                    def message = sh(script: 'git log -1 --pretty=format:"%s"', returnStdout: true).trim()
+    }
+    post {
+        always {
+            script {
+                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+                def commit = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+                def author = sh(script: 'git log -1 --pretty=format:"%an"', returnStdout: true).trim()
+                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+                def message = sh(script: 'git log -1 --pretty=format:"%s"', returnStdout: true).trim()
 
-                    slackSend channel: '#general',
-                            color: '#36a64f',
-                            message: "New commit by ${author}: ${message} (${commit})"
-                }
+                slackSend channel: '#general',
+                        color: '#36a64f',
+                        message: "New commit by ${author}: ${message} (${commit})"
             }
         }
     }
