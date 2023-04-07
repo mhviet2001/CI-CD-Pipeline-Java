@@ -1,11 +1,13 @@
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
-    tools {
-        maven 'Maven'
-    }
+
     options {
         ansiColor('xterm')
+    }
+
+    tools {
+        maven 'Maven'
     }
     environment {
         ANSIBLE_FORCE_COLOR = true
@@ -22,6 +24,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean install package'
+                echo '\033[34mHello\033[0m \033[33mcolorful\033[0m \033[35mworld!\033[0m'
             }
         }
         stage('Test') {
