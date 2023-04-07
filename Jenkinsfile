@@ -92,5 +92,10 @@ pipeline {
                 )
             }
         }
+        stage('Slack it') {
+            steps {
+                slackSend channel: '#Jenkins', message: 'Hello, world'
+            }
+        }
     }
 }
