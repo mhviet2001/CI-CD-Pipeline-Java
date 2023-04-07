@@ -9,6 +9,7 @@ pipeline {
     tools {
         maven 'Maven'
     }
+
     environment {
         /* groovylint-disable-next-line UnnecessaryGetter */
         ArtifactId = readMavenPom().getArtifactId()
@@ -22,6 +23,7 @@ pipeline {
         doError = '0'
         BUILD_USER = ''
     }
+
     stages {
         stage('Build') {
             steps {
