@@ -4,6 +4,9 @@ pipeline {
     tools {
         maven 'Maven'
     }
+    options {
+        ansiColor('xterm')
+    }
     environment {
         /* groovylint-disable-next-line UnnecessaryGetter */
         ArtifactId = readMavenPom().getArtifactId()
