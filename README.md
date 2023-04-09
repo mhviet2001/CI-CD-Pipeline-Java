@@ -345,7 +345,7 @@ stage('Publish to Nexus') {
 ```
 
 >`def NexusRepo = Version.endsWith("SNAPSHOT") ? "MyLab-SNAPSHOT" : "MyLab-RELEASE"` used to select `Nexus repo` based on `version` in the `pom.xml` file.
-
+>
 > In case we want to backup our artifact instead of release, just add `SNAPSHOT` at `<version>` in file `pom.xml`. Example: `<version>`0.0.1-SNAPSHOT`</version>`
 
 #### Configure Ansible to Jenkins pipeline
