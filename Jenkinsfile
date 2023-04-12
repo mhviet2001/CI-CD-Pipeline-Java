@@ -69,6 +69,7 @@ pipeline {
                 echo "Group ID is '${GroupId}'"
                 echo "Version is '${Version}'"
                 echo "Name is '${Name}'"
+                echo "Name of folder is '${NameFolder}'"
             }
         }
         stage('Deploy to Docker') {
