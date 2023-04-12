@@ -46,7 +46,7 @@ pipeline {
                         [
                             artifactId: "${ArtifactId}",
                             classifier: '',
-                            file: "target/${ArtifactId}-${env.BUILD_ID}.war",
+                            file: "target/${ArtifactId}-${Version}.war",
                             type: 'war'
                         ]
                     ],
@@ -56,7 +56,7 @@ pipeline {
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: "${NexusRepo}",
-                    version: "${env.BUILD_ID}"
+                    version: "${Version}"
                 }
             }
         }
