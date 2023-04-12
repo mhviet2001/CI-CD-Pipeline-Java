@@ -21,7 +21,7 @@ pipeline {
         Name = readMavenPom().getName()
 
         /* groovylint-disable-next-line ConsecutiveStringConcatenation */
-        NameFolder = 'mhviet2001' + '-' + "${ env.GIT_COMMIT[0..3] }"
+        NameFolder = 'mhviet' + '-' + "${env.BUILD_ID}" + '-' + "${ env.GIT_COMMIT[0..6] }"
         doError = '0'
         BUILD_USER = ''
     }
