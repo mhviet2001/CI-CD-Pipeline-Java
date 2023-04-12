@@ -319,28 +319,28 @@ Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `N
 
 ``` Groovy
 stage('Publish to Nexus') {
-    steps {
-        script {
-            /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
-            def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
-            nexusArtifactUploader artifacts:
+  steps {
+    script {
+        /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
+        def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
+        nexusArtifactUploader artifacts:
+        [
             [
-                [
-                    artifactId: "${ArtifactId}",
-                    classifier: '',
-                    file: "target/${ArtifactId}-${Version}.war",
-                    type: 'war'
-                ]
-            ],
-            credentialsId: 'Nexus',
-            groupId: "${GroupId}",
-            nexusUrl: '13.215.12.135:8081',
-            nexusVersion: 'nexus3',
-            protocol: 'http',
-            repository: "${NexusRepo}",
-            version: "${Version}"
-        }
+                artifactId: "${ArtifactId}",
+                classifier: '',
+                file: "target/${ArtifactId}-${env.NameFolder}.war",
+                type: 'war'
+            ]
+        ],
+        credentialsId: 'Nexus',
+        groupId: "${GroupId}",
+        nexusUrl: '13.215.12.135:8081',
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        repository: "${NexusRepo}",
+        version: "${env.NameFolder}"
     }
+  }
 }
 ```
 
