@@ -47,7 +47,7 @@ pipeline {
                         [
                             artifactId: "${ArtifactId}",
                             classifier: '',
-                            file: "target/${ArtifactId}-${Version}.war",
+                            file: "target/${ArtifactId}-${env.BUILD_ID}.war",
                             type: 'war'
                         ]
                     ],
