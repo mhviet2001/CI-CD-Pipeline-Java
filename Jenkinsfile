@@ -120,6 +120,7 @@ pipeline {
 
                 /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
                 def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
+
                 slackSend(token: slackToken, channel: slackChannel, message: message)
             }
         }
