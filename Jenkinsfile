@@ -27,7 +27,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "sed -i 's|<version>0.0.1</version>|<version>${env.BUILD_ID}</version>|g' pom.xml"
+                sh "sed -i 's|<version>0.0.1</version>|<version>${GIT_COMMIT[0..6]}</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
         }
@@ -47,7 +47,7 @@ pipeline {
                         [
                             artifactId: "${ArtifactId}",
                             classifier: '',
-                            file: "target/${ArtifactId}-${env.BUILD_ID}.war",
+                            file: "target/${ArtifactId}-${GIT_COMMIT[0..6]}.war",
                             type: 'war'
                         ]
                     ],
@@ -57,7 +57,7 @@ pipeline {
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: "${NexusRepo}",
-                    version: "${env.BUILD_ID}"
+                    version: "${GIT_COMMIT[0..6]}"
                 }
             }
         }
