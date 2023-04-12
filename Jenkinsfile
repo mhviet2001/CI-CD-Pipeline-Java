@@ -27,6 +27,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh "sed -i 's|<version>0.0.1</version>|<version>$(env.BUILD_ID)</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
         }
