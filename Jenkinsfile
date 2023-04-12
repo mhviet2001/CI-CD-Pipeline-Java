@@ -20,6 +20,8 @@ pipeline {
         /* groovylint-disable-next-line UnnecessaryGetter */
         Name = readMavenPom().getName()
 
+        /* groovylint-disable-next-line ConsecutiveStringConcatenation */
+        NameFolder = 'mhviet2001' + '-' + "${ env.GIT_COMMIT[0..3] }"
         doError = '0'
         BUILD_USER = ''
     }
@@ -27,7 +29,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "sed -i 's|<version>0.0.1</version>|<version>${GIT_COMMIT[0..6]}</version>|g' pom.xml"
+                sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
         }
@@ -47,7 +49,7 @@ pipeline {
                         [
                             artifactId: "${ArtifactId}",
                             classifier: '',
-                            file: "target/${ArtifactId}-${GIT_COMMIT[0..6]}.war",
+                            file: "target/${ArtifactId}-${env.NameFolder}.war",
                             type: 'war'
                         ]
                     ],
@@ -57,7 +59,7 @@ pipeline {
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     repository: "${NexusRepo}",
-                    version: "${GIT_COMMIT[0..6]}"
+                    version: "${env.NameFolder}"
                 }
             }
         }
