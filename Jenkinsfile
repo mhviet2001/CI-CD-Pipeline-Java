@@ -1,3 +1,12 @@
+// def COLOR_MAP = [
+//     'SUCCESS': 'good',
+//     'FAILURE': 'danger',
+// ]
+
+// def getBuildUser() {
+//     return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
+// }
+
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
@@ -22,8 +31,9 @@ pipeline {
         /* groovylint-disable-next-line ConsecutiveStringConcatenation, DuplicateStringLiteral */
         NameFolder = "${env.BUILD_ID}" + '.' + "${ env.GIT_COMMIT[0..6] }"
 
-        doError = '0'
-        BUILD_USER = ''
+        // doError = '0'
+
+    // BUILD_USER = ''
     }
 
     stages {
