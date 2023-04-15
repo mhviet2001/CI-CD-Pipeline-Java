@@ -447,7 +447,7 @@ Enter same passphrase again:
 Your identification has been saved in /home/ansibleadmin/.ssh/id_rsa.
 Your public key has been saved in /home/ansibleadmin/.ssh/id_rsa.pub.
 The key fingerprint is:
-SHA256:LwV0cZlxt2qyX7zu6uVygLfrnXQfDNDK0PIeCNAshpg ansibleadmin@ip-10-0-0-59.ec2.internal
+SHA256:LwV0cZlxt2qyX7zu6uVygLfrnXQfDNDK0PIeCNAshpg ansibleadmin@ip-10-0-0-59.ap-southeast-1.compute.internal
 The key's randomart image is:
 +---[RSA 2048]----+
 |  o ..o . o.o+. .|
@@ -465,19 +465,19 @@ The key's randomart image is:
 Then, run the command `ssh-copy-id ansibleadmin@[Your Docker Private IP]` to copy the public key to the `Docker`, allowing us to log in to the `Docker` without having to enter the password.
 
 ```bash
-[ansibleadmin@ip-10-0-0-59 ~]$ ssh-copy-id ansibleadmin@10.0.0.85
+[ansibleadmin@ip-10-0-0-59 ~]$ ssh-copy-id ansibleadmin@10.0.0.190
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/ansibleadmin/.ssh/id_rsa.pub"
-The authenticity of host '10.0.0.85 (10.0.0.85)' can't be established.
+The authenticity of host '10.0.0.190 (10.0.0.190)' can't be established.
 ECDSA key fingerprint is SHA256:Zghtxh+5N5xRs4CgyXm7WEobMD18MF5bVhDLOE2EqTg.
 ECDSA key fingerprint is MD5:03:8b:ee:bd:3f:bf:63:93:b5:49:f1:a8:6f:7b:7c:e8.
 Are you sure you want to continue connecting (yes/no)? yes
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
 /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-ansibleadmin@10.0.0.85's password: 
+ansibleadmin@10.0.0.190's password: 
 
 Number of key(s) added: 1
 
-Now try logging into the machine, with:   "ssh 'ansibleadmin@10.0.0.85'"
+Now try logging into the machine, with:   "ssh 'ansibleadmin@10.0.0.190'"
 and check to make sure that only the key(s) you wanted were added.
 ```
 
