@@ -97,34 +97,15 @@ pipeline {
     }
 
     post {
-        // always {
-        //     // script {
-        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-        //     //     def slackToken = 'Slack'
-        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-        //     //     def slackChannel = '#general'
-
-        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-        //     //     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-        //     //     def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-        //     //     def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-
-        //     //     /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
-        //     //     def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
-
-        // //     slackSend(token: slackToken, channel: slackChannel, message: message)
-        // // }
-        // }
         success {
             def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
-            slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general', uploadFile: 'path/to/success-icon.png'
+            slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#jenkins-notifications', uploadFile: 'path/to/success-icon.png'
         }
 
         failure {
             def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
-            slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general', uploadFile: 'path/to/failure-icon.png'
+            slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#jenkins-notifications', uploadFile: 'path/to/failure-icon.png'
         }
     }
+
 }
