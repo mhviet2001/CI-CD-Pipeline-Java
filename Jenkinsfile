@@ -120,7 +120,7 @@ pipeline {
 
         success {
             script {
-                slackSend channel: '#build-status',
+                slackSend channel: '#general',
                           color: 'good', // Get Slack color based on build status
                           message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
                           // Optional: Add more information in the attachments
@@ -130,6 +130,7 @@ pipeline {
                                   title: 'Build Details',
                                   title_link: "${env.BUILD_URL}",
                                   text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                  /* groovylint-disable-next-line DuplicateStringLiteral */
                                   color: 'good'
                               ]
                           ]
@@ -139,7 +140,7 @@ pipeline {
         failure {
             script {
                 /* groovylint-disable-next-line DuplicateStringLiteral */
-                slackSend channel: '#build-status',
+                slackSend channel: '#general    ',
                           color: 'danger', // Get Slack color based on build status
                           message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
                           // Optional: Add more information in the attachments
@@ -150,6 +151,7 @@ pipeline {
                                   title: 'Build Details',
                                   title_link: "${env.BUILD_URL}",
                                   text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                  /* groovylint-disable-next-line DuplicateStringLiteral */
                                   color: 'danger'
                               ]
                           ]
