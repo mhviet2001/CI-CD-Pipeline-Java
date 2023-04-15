@@ -108,6 +108,7 @@ pipeline {
 
         failure {
             script {
+                /* groovylint-disable-next-line LineLength */
                 /* groovylint-disable-next-line DuplicateMapLiteral, DuplicateStringLiteral, NoDef, VariableTypeRequired */
                 def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
                 /* groovylint-disable-next-line DuplicateNumberLiteral, DuplicateStringLiteral, LineLength */
