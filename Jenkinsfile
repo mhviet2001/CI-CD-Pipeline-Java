@@ -118,43 +118,15 @@ pipeline {
         // // }
         // }
 
-        success {
-            script {
-                slackSend channel: '#general',
-                          color: 'good', // Get Slack color based on build status
-                          message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
-                          // Optional: Add more information in the attachments
-                          attachments: [
-                              [
-                                  fallback: "Build details: ${env.BUILD_URL}",
-                                  title: 'Build Details',
-                                  title_link: "${env.BUILD_URL}",
-                                  text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                  /* groovylint-disable-next-line DuplicateStringLiteral */
-                                  color: 'good'
-                              ]
-                          ]
+        post {
+            success {
+                def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+                slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general', uploadFile: 'path/to/success-icon.png'
             }
-        }
 
-        failure {
-            script {
-                /* groovylint-disable-next-line DuplicateStringLiteral */
-                slackSend channel: '#general    ',
-                          color: 'danger', // Get Slack color based on build status
-                          message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
-                          // Optional: Add more information in the attachments
-                          attachments: [
-                              [
-                                  fallback: "Build details: ${env.BUILD_URL}",
-                                  /* groovylint-disable-next-line DuplicateStringLiteral */
-                                  title: 'Build Details',
-                                  title_link: "${env.BUILD_URL}",
-                                  text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                  /* groovylint-disable-next-line DuplicateStringLiteral */
-                                  color: 'danger'
-                              ]
-                          ]
+            failure {
+                def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+                slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general', uploadFile: 'path/to/failure-icon.png'
             }
         }
     }
