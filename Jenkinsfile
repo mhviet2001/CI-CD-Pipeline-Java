@@ -1,19 +1,10 @@
-// def COLOR_MAP = [
-//     'SUCCESS': 'good',
-//     'FAILURE': 'danger',
-// ]
-
-// def getBuildUser() {
-//     return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
-// }
-
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
 
-    // options {
-    //     ansiColor('xterm')
-    // }
+    options {
+        ansiColor('xterm')
+    }
 
     tools {
         maven 'Maven'
@@ -30,10 +21,6 @@ pipeline {
         Name = readMavenPom().getName()
         /* groovylint-disable-next-line ConsecutiveStringConcatenation, DuplicateStringLiteral */
         NameFolder = "${env.BUILD_ID}" + '.' + "${ env.GIT_COMMIT[0..6] }"
-
-        // doError = '0'
-
-        // BUILD_USER = ''
     }
 
     stages {
@@ -41,11 +28,6 @@ pipeline {
             steps {
                 sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
                 sh 'mvn clean install package'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing...'
             }
         }
 
@@ -116,23 +98,57 @@ pipeline {
 
     post {
         always {
-            script {
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def slackToken = 'Slack'
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def slackChannel = '#general'
+            // script {
+            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+            //     def slackToken = 'Slack'
+            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+            //     def slackChannel = '#general'
 
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-                def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+            //     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+            //     def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+            //     def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
-                /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
-                def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
+            //     /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
+            //     def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
 
-                slackSend(token: slackToken, channel: slackChannel, message: message)
+            //     slackSend(token: slackToken, channel: slackChannel, message: message)
+            // }
+
+            success {
+                slackSend channel: '#build-status',
+                          color: 'good',
+                          message: "Build succeeded for commit ${env.GIT_COMMIT}",
+                          attachments: [
+                            [
+                                fallback: "View the build details at ${BUILD_URL}",
+                                title: 'Build Details',
+                                title_link: "${BUILD_URL}",
+                                text: "Build Number: ${BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                /* groovylint-disable-next-line DuplicateStringLiteral */
+                                color: 'good'
+                            ]
+                        ]
+            }
+
+            FAILURE {
+                /* groovylint-disable-next-line DuplicateStringLiteral */
+                slackSend channel: '#build-status',
+                          color: 'danger',
+                          message: "Build succeeded for commit ${env.GIT_COMMIT}",
+                          attachments: [
+                            [
+                                fallback: "View the build details at ${BUILD_URL}",
+                                /* groovylint-disable-next-line DuplicateStringLiteral */
+                                title: 'Build Details',
+                                title_link: "${BUILD_URL}",
+                                text: "Build Number: ${BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                /* groovylint-disable-next-line DuplicateStringLiteral */
+                                color: 'danger'
+                            ]
+                        ]
             }
         }
     }
