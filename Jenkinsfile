@@ -1,8 +1,3 @@
-/* groovylint-disable-next-line CompileStatic */
-/* groovylint-disable-next-line CompileStatic, NoDef */
-@Library('slack-library') _
-
-/* groovylint-disable-next-line CompileStatic, NglParseError */
 pipeline {
     agent any
 
