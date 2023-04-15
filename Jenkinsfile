@@ -1,3 +1,5 @@
+@Library('slack-library')
+
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
