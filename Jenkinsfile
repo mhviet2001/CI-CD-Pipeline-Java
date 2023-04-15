@@ -2,9 +2,9 @@
 pipeline {
     agent any
 
-    // options {
-    //     ansiColor('xterm')
-    // }
+    options {
+        ansiColor('xterm')
+    }
 
     tools {
         maven 'Maven'
