@@ -114,41 +114,49 @@ pipeline {
             //     /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
             //     def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
 
-            //     slackSend(token: slackToken, channel: slackChannel, message: message)
-            // }
+        //     slackSend(token: slackToken, channel: slackChannel, message: message)
+        // }
+        }
 
-            success {
+        success {
+            script {
+                /* groovylint-disable-next-line NoDef, UnnecessaryGetter, UnusedVariable, VariableTypeRequired */
+                def slack = getSlackClient() // Get Slack client
                 slackSend channel: '#build-status',
-                          color: 'good',
-                          message: "Build succeeded for commit ${env.GIT_COMMIT}",
+                          color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
+                          message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
+                          // Optional: Add more information in the attachments
                           attachments: [
-                            [
-                                fallback: "View the build details at ${BUILD_URL}",
-                                title: 'Build Details',
-                                title_link: "${BUILD_URL}",
-                                text: "Build Number: ${BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                /* groovylint-disable-next-line DuplicateStringLiteral */
-                                color: 'good'
-                            ]
-                        ]
+                              [
+                                  fallback: "Build details: ${env.BUILD_URL}",
+                                  title: 'Build Details',
+                                  title_link: "${env.BUILD_URL}",
+                                  text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                  color: getSlackColor(env.BUILD_STATUS)
+                              ]
+                          ]
             }
+        }
 
-            FAILURE {
+        failure {
+            script {
+                /* groovylint-disable-next-line NoDef, UnnecessaryGetter, UnusedVariable, VariableTypeRequired */
+                def slack = getSlackClient() // Get Slack client
                 /* groovylint-disable-next-line DuplicateStringLiteral */
                 slackSend channel: '#build-status',
-                          color: 'danger',
-                          message: "Build succeeded for commit ${env.GIT_COMMIT}",
+                          color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
+                          message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
+                          // Optional: Add more information in the attachments
                           attachments: [
-                            [
-                                fallback: "View the build details at ${BUILD_URL}",
-                                /* groovylint-disable-next-line DuplicateStringLiteral */
-                                title: 'Build Details',
-                                title_link: "${BUILD_URL}",
-                                text: "Build Number: ${BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                /* groovylint-disable-next-line DuplicateStringLiteral */
-                                color: 'danger'
-                            ]
-                        ]
+                              [
+                                  fallback: "Build details: ${env.BUILD_URL}",
+                                  /* groovylint-disable-next-line DuplicateStringLiteral */
+                                  title: 'Build Details',
+                                  title_link: "${env.BUILD_URL}",
+                                  text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
+                                  color: getSlackColor(env.BUILD_STATUS)
+                              ]
+                          ]
             }
         }
     }
