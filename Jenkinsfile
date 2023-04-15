@@ -1,3 +1,4 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
 
@@ -119,8 +120,6 @@ pipeline {
 
         success {
             script {
-                /* groovylint-disable-next-line NoDef, UnnecessaryGetter, UnusedVariable, VariableTypeRequired */
-                def slack = getSlackClient() // Get Slack client
                 slackSend channel: '#build-status',
                           color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
                           message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
@@ -139,8 +138,6 @@ pipeline {
 
         failure {
             script {
-                /* groovylint-disable-next-line NoDef, UnnecessaryGetter, UnusedVariable, VariableTypeRequired */
-                def slack = getSlackClient() // Get Slack client
                 /* groovylint-disable-next-line DuplicateStringLiteral */
                 slackSend channel: '#build-status',
                           color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
