@@ -99,17 +99,21 @@ pipeline {
     post {
         success {
             script {
+                /* groovylint-disable-next-line NoDef, VariableTypeRequired */
                 def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+                /* groovylint-disable-next-line LineLength */
                 slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
             }
         }
 
         failure {
             script {
+                /* groovylint-disable-next-line LineLength */
+                /* groovylint-disable-next-line DuplicateMapLiteral, DuplicateStringLiteral, NoDef, VariableTypeRequired */
                 def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+                /* groovylint-disable-next-line DuplicateNumberLiteral, DuplicateStringLiteral, LineLength */
                 slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
             }
         }
     }
-
 }
