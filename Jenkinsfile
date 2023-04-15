@@ -97,26 +97,26 @@ pipeline {
     }
 
     post {
-        always {
-            // script {
-            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-            //     def slackToken = 'Slack'
-            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-            //     def slackChannel = '#general'
+        // always {
+        //     // script {
+        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+        //     //     def slackToken = 'Slack'
+        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+        //     //     def slackChannel = '#general'
 
-            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-            //     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-            //     def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-            //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
-            //     def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+        //     //     def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+        //     //     def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+        //     //     /* groovylint-disable-next-line NoDef, VariableTypeRequired */
+        //     //     def commitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
 
-            //     /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
-            //     def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
+        //     //     /* groovylint-disable-next-line LineLength, NoDef, VariableTypeRequired */
+        //     //     def message = "New commit by ${commitAuthor}: ${commitMessage} - <https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}>"
 
-        //     slackSend(token: slackToken, channel: slackChannel, message: message)
+        // //     slackSend(token: slackToken, channel: slackChannel, message: message)
+        // // }
         // }
-        }
 
         success {
             script {
