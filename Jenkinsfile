@@ -121,7 +121,7 @@ pipeline {
         success {
             script {
                 slackSend channel: '#build-status',
-                          color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
+                          color: 'good', // Get Slack color based on build status
                           message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
                           // Optional: Add more information in the attachments
                           attachments: [
@@ -130,7 +130,7 @@ pipeline {
                                   title: 'Build Details',
                                   title_link: "${env.BUILD_URL}",
                                   text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                  color: getSlackColor(env.BUILD_STATUS)
+                                  color: 'good'
                               ]
                           ]
             }
@@ -140,7 +140,7 @@ pipeline {
             script {
                 /* groovylint-disable-next-line DuplicateStringLiteral */
                 slackSend channel: '#build-status',
-                          color: getSlackColor(env.BUILD_STATUS), // Get Slack color based on build status
+                          color: 'danger', // Get Slack color based on build status
                           message: "Commit ${env.GIT_COMMIT} has ${env.BUILD_STATUS} status",
                           // Optional: Add more information in the attachments
                           attachments: [
@@ -150,7 +150,7 @@ pipeline {
                                   title: 'Build Details',
                                   title_link: "${env.BUILD_URL}",
                                   text: "Build Number: ${env.BUILD_NUMBER}\nDuration: ${currentBuild.durationString}",
-                                  color: getSlackColor(env.BUILD_STATUS)
+                                  color: 'danger'
                               ]
                           ]
             }
