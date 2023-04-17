@@ -26,6 +26,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh "echo '\033[34mBuild\033[0m'"
                 sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
@@ -33,6 +34,7 @@ pipeline {
 
         stage('Publish to Nexus') {
             steps {
+                echo '\033[34mPublish\033[0m \033[33mto\033[0m \033[35mNexus\033[0m'
                 script {
                     /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
                     def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
@@ -66,7 +68,7 @@ pipeline {
         }
         stage('Deploy to Docker') {
             steps {
-                echo 'Deploying...'
+                echo '\033[34mDeploy\033[0m \033[33mto\033[0m \033[35mDocker\033[0m'
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
