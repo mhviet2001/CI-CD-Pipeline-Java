@@ -85,15 +85,8 @@ pipeline {
         always {
             script {
                 def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
-                echo "${commit}"
-                slackSend color: COLOR_MAP[currentBuild.currentResult], message: "*Build and deploy successful* :white_check_mark:\n\nJob: *`${env.JOB_NAME}`*\nBuild Number: `<${env.BUILD_URL} |${env.BUILD_NUMBER}>`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `<https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commitHash}|${commitHash}> |${commit[0]}`", channel: '#general'
+                slackSend color: COLOR_MAP[currentBuild.currentResult], message: "*Build and deploy successful* :white_check_mark:\n\nJob: *`${env.JOB_NAME}`*\nBuild Number: `<${env.BUILD_URL} |${env.BUILD_NUMBER}>`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `<https://github.com/mhviet2001/CI-CD-Pipeline-Java-WebApp/commit/${commit[1]> |${commit[0]}`", channel: '#general'
             }
         }
-
-        // always {
-        //     script {
-        //         slackSend channel: "#general", color: COLOR_MAP[currentBuild.currentResult], message: "*`${currentBuild.currentResult}`*: *${env.JOB_NAME}*, build #${env.BUILD_NUMBER} \nRun in ${currentBuild.durationString} - (<${env.BUILD_URL} |Go to this job>) \nGit Branch:main"
-        //     }
-        // }
     }
 }
