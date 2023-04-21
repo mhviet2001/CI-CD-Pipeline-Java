@@ -1,10 +1,7 @@
-/* groovylint-disable ConsecutiveStringConcatenation, NoDef, UnnecessaryGetter, VariableTypeRequired */
+def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
+
 pipeline {
     agent any
-
-    options {
-        ansiColor('xterm')
-    }
 
     tools {
         maven 'Maven'
@@ -21,7 +18,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "echo '\033[34mBuild\033[0m'"
+                sh "echo Build"
                 sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
@@ -29,9 +26,8 @@ pipeline {
 
         stage('Publish to Nexus') {
             steps {
-                echo '\033[34mPublish\033[0m \033[33mto\033[0m \033[35mNexus\033[0m'
+                echo 'Publish to Nexus'
                 script {
-                    /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
                     def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
                     nexusArtifactUploader artifacts:
                     [
@@ -52,18 +48,10 @@ pipeline {
                 }
             }
         }
-        stage('Print Environment variables') {
-            steps {
-                echo "Artifact ID is '${ArtifactId}'"
-                echo "Group ID is '${GroupId}'"
-                echo "Version is '${Version}'"
-                echo "Name is '${Name}'"
-                echo "Name of folder is '${NameFolder}'"
-            }
-        }
+
         stage('Deploy to Docker') {
             steps {
-                echo '\033[34mDeploy\033[0m \033[33mto\033[0m \033[35mDocker\033[0m'
+                echo 'Deploy to Docker'
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
@@ -94,18 +82,23 @@ pipeline {
     }
 
     post {
-        success {
-            script {
-                def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
-                slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
-            }
-        }
+        // success {
+        //     script {
+        //         def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+        //         slackSend color: 'good', message: "*Build and deploy successful* :white_check_mark:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
+        //     }
+        // }
 
-        failure {
-            script {
-                def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
-                slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
-            }
+        // failure {
+        //     script {
+        //         def commit = sh(returnStdout: true, script: 'git log --format="%H%n%an%n%s" -n 1').trim().split('\n')
+        //         slackSend color: 'danger', message: "*Build or deploy failed* :x:\n\nJob: `${env.JOB_NAME}`\nBuild Number: `${env.BUILD_NUMBER}`\nCommit: `${commit[2]}`\nAuthor: `${commit[1]}`\nCommit ID: `${commit[0]}`", channel: '#general'
+        //     }
+        // }
+
+        always {
+            clearWs()
+            slackSend channel: "${SLACK_CHANNEL}", color: COLOR_MAP[currentBuild.currentResult], message: "*`${currentBuild.currentResult}`*: *${env.JOB_NAME}*, build #${env.BUILD_NUMBER} \nRun in ${currentBuild.durationString} - (<${env.BUILD_URL} |Go to this job>) \nGit Branch:${gitBranch} "
         }
     }
 }
