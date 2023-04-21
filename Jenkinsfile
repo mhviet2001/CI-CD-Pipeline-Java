@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "echo Build"
+                echo 'echo Build'
                 sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
                 sh 'mvn clean install package'
             }
@@ -97,7 +97,6 @@ pipeline {
         // }
 
         always {
-            clearWs()
             slackSend channel: "${SLACK_CHANNEL}", color: COLOR_MAP[currentBuild.currentResult], message: "*`${currentBuild.currentResult}`*: *${env.JOB_NAME}*, build #${env.BUILD_NUMBER} \nRun in ${currentBuild.durationString} - (<${env.BUILD_URL} |Go to this job>) \nGit Branch:${gitBranch} "
         }
     }
