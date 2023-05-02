@@ -78,7 +78,7 @@ terraform plan
 terraform apply --auto-approve
 ```
 
-> Please be aware that the Nexus use `instance type: t2.medium` which doesn't qualify under [AWS free tier](https://aws.amazon.com/free/)
+> Please be aware that the Nexus use `instance type: t2.large` which doesn't qualify under [AWS free tier](https://aws.amazon.com/free/)
 
 You can change `CIDRs`, `Instance Type`, `AMI`, `Security Group ports` and `Key Pair` in `variables.tf`. Scripts in `userdata/` for installing [Jenkins](/userdata/install-jenkins.sh), [Nexus](/userdata/install-nexus.sh), [Ansible](/userdata/install-ansible.sh), [Docker](/userdata/install-docker.sh).
 
