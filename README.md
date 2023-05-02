@@ -600,6 +600,9 @@ Now, every time you change your Web app source code, just push to the GitHub rep
 
 > You can also automate the step click `Build Now` in Jenkins by going to `Configuration` in your pipeline. Select `Poll SCM` in the section `Build Trigger` and define the schedule. Click on the `?` sign to read the schedule instruction.
 
+Open Slack, you will see information about the pushed commit
+![Slack Notification](/docs/images/Slack-noti.png)
+
 ### Troubleshooting
 
 If your pipeline triggers an error, open `Console Output` of this `build #` to identify find which stage has the issue.
