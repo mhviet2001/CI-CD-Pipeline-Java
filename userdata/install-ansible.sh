@@ -7,7 +7,7 @@ useradd ansibleadmin
 echo "ansibleadmin" | passwd --stdin ansibleadmin
 
 # Modify the sudoers file at /etc/sudoers and add entry
-echo 'ansibleadmin  ALL=(ALL)   NOPASSWD: ALL' | tee -a /etc/sudoers
+echo 'ansibleadmin ALL=(ALL) NOPASSWD: ALL' | tee -a /etc/sudoers
 echo 'ec2-user ALL=(ALL) NOPASSWD: ALL' | tee -a /etc/sudoers
 
 # Enable Password Authentication

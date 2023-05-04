@@ -16,7 +16,7 @@ tar -xf nexus-3.47.1-01-unix.tar.gz && rm -rf *.tar.gz
 # Rename folder for ease of use
 mv nexus-3.* nexus3
 
-# Enable permission for ec2-user to work on nexus3 and sonytype-work folers
+# Enable permission for ec2-user to work on nexus3 and sonatype-work folders
 chown -R ec2-user:ec2-user nexus3/ sonatype-work/
 
 # Create a file called nexus.rc and add run as ec2-user
