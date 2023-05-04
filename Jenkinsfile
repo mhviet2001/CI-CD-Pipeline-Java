@@ -12,6 +12,7 @@ pipeline {
         Version = readMavenPom().getVersion()
         GroupId = readMavenPom().getGroupId()
         Name = readMavenPom().getName()
+
         NameFolder = "${env.BUILD_ID}" + '.' + "${ env.GIT_COMMIT[0..6]}"
     }
 

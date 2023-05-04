@@ -124,7 +124,7 @@ That's all you need to know to start! 🎉
 
 ### Setup first-time use
 
-Open `http://[Your Jenkins-Server Public IPv4]:8080` on web browser
+Open `http://[Your Jenkins Public IPv4]:8080` on web browser
 ![Jenkins Login](/docs/images/jenkins-login.png)
 
 Follow the instructions to get the initial Administrator password by run
@@ -180,13 +180,12 @@ tool {
 and use the command `mvn clean install package` to build a Java project:
 
 ```Groovy
-stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean install package'
-            }
-        }
-        ...
+stage('Build') {
+    steps {
+        echo 'echo Build'
+        sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
+        sh 'mvn clean install package'
+    }
 }
 ```
 
@@ -226,20 +225,22 @@ In `Jenkinsfile`, these lines will get context from `pom.xml` of the repository:
 
 ```Groovy
 environment {
-        ArtifactId = readMavenPom().getArtifactId()
-        Version = readMavenPom().getVersion()
-        GroupId = readMavenPom().getGroupId()
-        Name = readMavenPom().getName()
-    }
+    ArtifactId = readMavenPom().getArtifactId()
+    Version = readMavenPom().getVersion()
+    GroupId = readMavenPom().getGroupId()
+    Name = readMavenPom().getName()
+
+    NameFolder = "${env.BUILD_ID}" + '.' + "${ env.GIT_COMMIT[0..6]}"
+}
 ```
 
 #### Publish artifacts to the Nexus repository
 
 We will need to store the `RELEASE`/`SNAPSHOT` version every time we update the source code of java web. Here is how we do that using **Sonatype Nexus**
 
-### Setup on Nexus-Server
+### Setup on Nexus
 
-Open `http://[Your Nexus-Server Public IPv4]:8081` on a web browser. Click `Login` in the upper-right corner.
+Open `http://[Your Nexus Public IPv4]:8081` on a web browser. Click `Login` in the upper-right corner.
 
 Follow instructions to get the initial admin password by run
 `sudo cat /opt/sonatype-work/nexus3/admin.password` on Nexus-server CLI.
@@ -266,7 +267,7 @@ Repeat these steps above to create another repo with the name: `MyLab-SNAPSHOT` 
 Return to your `Nexus Browser` tab and the result should be like that:
 ![Nexus Browser](/docs/images/nexus-browser.png)
 
-### Setup on Jenkins-Server
+### Setup on Jenkins
 
 Our goal is to set up the Jenkins pipeline to publish the maven build artifact to the corresponding Nexus repo.
 First, we need to `Add Credentials` to access `Nexus repositories`.
@@ -284,12 +285,12 @@ Click `Create`
 Then, install the `Nexus Artifact Uploader` plugin on Jenkins:
 ![Nexus Plugin](/docs/images/nexus-plugin.png)
 
-After installing the plugin. Open our created Jenkins pipeline, which is `Java Website` as I named it before. On the left-sidebar, select `Pipeline Syntax` > `Snippet Generator` to generate the syntax of `Jenkinsfile`. Choose `Sample Step` is `nexusArtifactUploader: Nexus Artifact Uploader`
+After installing the plugin. Open our created Jenkins pipeline, which is `Java-Website` as I named it before. On the left-sidebar, select `Pipeline Syntax` > `Snippet Generator` to generate the syntax of `Jenkinsfile`. Choose `Sample Step` is `nexusArtifactUploader: Nexus Artifact Uploader`
 ![Pipeline Syntax](/docs/images/pipeline-syntax-nexus.png)
 
 - Nexus Version: `NEXUS3`
 - Protocol: `HTTP`
-- Nexus URL: `[Your Nexus-Server Public IPv4]:8081`
+- Nexus URL: `[Your Nexus Public IPv4]:8081`
 - Credentials: select your nexus credential you just created in previous step.
 - GroupId: **${GroupId}**
 - Version: **${Version}**
@@ -306,28 +307,28 @@ Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `N
 
 ``` Groovy
 stage('Publish to Nexus') {
-  steps {
-    script {
-        /* groovylint-disable-next-line NoDef, VariableName, VariableTypeRequired */
-        def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
-        nexusArtifactUploader artifacts:
-        [
+    steps {
+        echo 'Publish to Nexus'
+        script {
+            def NexusRepo = Version.endsWith('SNAPSHOT') ? 'MyLab-SNAPSHOT' : 'MyLab-RELEASE'
+            nexusArtifactUploader artifacts:
             [
-                artifactId: "${ArtifactId}",
-                classifier: '',
-                file: "target/${ArtifactId}-${env.NameFolder}.war",
-                type: 'war'
-            ]
-        ],
-        credentialsId: 'Nexus',
-        groupId: "${GroupId}",
-        nexusUrl: '13.215.12.135:8081',
-        nexusVersion: 'nexus3',
-        protocol: 'http',
-        repository: "${NexusRepo}",
-        version: "${env.NameFolder}"
+                [
+                    artifactId: "${ArtifactId}",
+                    classifier: '',
+                    file: "target/${ArtifactId}-${env.NameFolder}.war",
+                    type: 'war'
+                ]
+            ],
+            credentialsId: 'Nexus',
+            groupId: "${GroupId}",
+            nexusUrl: '13.215.12.135:8081',
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            repository: "${NexusRepo}",
+            version: "${env.NameFolder}"
+        }
     }
-  }
 }
 ```
 
@@ -360,13 +361,13 @@ Click `Apply` and `Save`.
 
 > Our goal is to transfer `ansible playbook files`, `ansible inventory files` on `Jenkins` to `Ansible` and run it by `Ansible CLI`
 
-Open our created Jenkins pipeline `Java Website` again. On the left-sidebar, select `Pipeline Syntax` > `Snippet Generator` to generate the syntax of `Jenkinsfile`. Choose `Sample Step` is `sshPublisher: Send build artifacts over SSH`.
+Open our created Jenkins pipeline `Java-Website` again. On the left-sidebar, select `Pipeline Syntax` > `Snippet Generator` to generate the syntax of `Jenkinsfile`. Choose `Sample Step` is `sshPublisher: Send build artifacts over SSH`.
 
 - Name: select `Ansible`
-Transfer Set:
-- Source files: `playbook.yml, inventory.txt`
-- Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins`)
-- Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt``
+- Transfer Set:
+  - Source files: `playbook.yml, inventory.txt`
+  - Remote directory: `/playbooks` (this directory on `Ansible` will be created to store source files transfer from `Jenkins`)
+  - Exec command: ``cd playbooks/ && ansible-playbook playbook.yml -i inventory.txt``
   
 ![Publish Over SSH](/docs/images/sshPublishOver.png)
 
@@ -378,7 +379,7 @@ Copy this syntax to your `Jenkinsfile` then return to `Dashboard`. Here is my `D
 ```Groovy
 stage('Deploy to Docker') {
     steps {
-        echo 'Deploying...'
+        echo 'Deploy to Docker'
         sshPublisher(
             publishers: [
                 sshPublisherDesc(
@@ -497,7 +498,7 @@ Check out my playbook file on the Github repo `playbook.yml`.
 #### Download the latest artifact from the Nexus release repo by using [Search API](https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api)
 
 ```Groovy
-curl -u [Nexus account]:[Nexus password] -L "http://[Your Nexus-Server Private IP]:8081/service/rest/v1/search/assets/download?sort=version&repository=[Nexus repository name]&maven.groupId=[groupID in pom.xml]&maven.artifactId=[artifactId in pom.xml]&maven.extension=[packaging in pom.xml]" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
+curl -u [Nexus account]:[Nexus password] -L "http://[Your Nexus Private IP]:8081/service/rest/v1/search/assets/download?sort=version&repository=[Nexus repository name]&maven.groupId=[groupID in pom.xml]&maven.artifactId=[artifactId in pom.xml]&maven.extension=[packaging in pom.xml]" -H "accept: application/json" --output /home/ansibleadmin/latest.war'
 ```
 
 In my ansible playbook, it will look like this:
