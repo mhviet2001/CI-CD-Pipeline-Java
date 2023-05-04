@@ -233,19 +233,6 @@ environment {
     }
 ```
 
-and print out when running the pipeline:
-
-```Groovy
-stage('Print Environment variables') {
-            steps {
-                echo "Artifact ID is '${ArtifactId}'"
-                echo "Group ID is '${GroupId}'"
-                echo "Version is '${Version}'"
-                echo "Name is '${Name}'"
-            }
-        }
-```
-
 #### Publish artifacts to the Nexus repository
 
 We will need to store the `RELEASE`/`SNAPSHOT` version every time we update the source code of java web. Here is how we do that using **Sonatype Nexus**
