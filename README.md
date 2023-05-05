@@ -182,7 +182,7 @@ and use the command `mvn clean install package` to build a Java project:
 ```Groovy
 stage('Build') {
     steps {
-        echo 'echo Build'
+        echo 'Build'
         sh "sed -i 's|<version>0.0.1</version>|<version>${env.NameFolder}</version>|g' pom.xml"
         sh 'mvn clean install package'
     }
