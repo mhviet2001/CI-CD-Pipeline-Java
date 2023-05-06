@@ -91,7 +91,7 @@ resource "aws_instance" "jenkins" {
   user_data = file("./userdata/install-jenkins.sh")
 
   tags = {
-    Name = "jenkins"
+    Name = "Jenkins"
   }
 }
 
@@ -112,7 +112,7 @@ resource "aws_instance" "ansible" {
   user_data = file("./userdata/install-ansible.sh")
 
   tags = {
-    Name = "ansible"
+    Name = "Ansible"
   }
 }
 
@@ -133,7 +133,7 @@ resource "aws_instance" "nexus" {
   user_data = file("./userdata/install-nexus.sh")
 
   tags = {
-    Name = "nexus"
+    Name = "Nexus"
   }
 }
 
@@ -154,7 +154,7 @@ resource "aws_instance" "docker" {
   user_data = file("./userdata/install-docker.sh")
 
   tags = {
-    Name = "docker"
+    Name = "Docker"
   }
 }
 
