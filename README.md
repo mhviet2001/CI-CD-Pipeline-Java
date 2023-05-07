@@ -1,6 +1,6 @@
 <h1 align="center">
   <img src="./docs/images/pipeline.png" width="100%"/>
-  <br/> CI/CD Pipeline for Java Webapp
+  <br/> CI/CD Pipeline for Java Website
 </h1>
 <p align="center">Create a <b>Continuous Integration/Continuous Deployment</b> pipeline to deploy a simple Java web application.<br/>Focus on automation of the process for <b>DevOps</b>.</p>
 
