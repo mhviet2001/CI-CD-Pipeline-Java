@@ -5,26 +5,11 @@
 <p align="center">Create a <b>Continuous Integration/Continuous Deployment</b> pipeline to deploy a simple Java web application.<br/>Focus on automation of the process for <b>DevOps</b>.</p>
 
 <p align="center">
-  <a href="https://aws.amazon.com/" target="_blank">
-    <img src="https://img.shields.io/badge/-Amazon%20AWS-FF9900?logo=amazon-aws&logoColor=white" alt="AWS" />
-  </a>
-  &nbsp;
-  <a href="https://www.jenkins.io/" target="_blank">
-    <img src="https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white" alt="Jenkins" />
-  </a>
-  &nbsp;
-  <a href="https://www.terraform.io/" target="_blank">
-    <img src="https://img.shields.io/badge/-Terraform-7B42BC?logo=terraform&logoColor=white" alt="Terraform" />
-  </a>
-  &nbsp;
-  <a href="https://www.ansible.com/" target="_blank">
-    <img src="https://img.shields.io/badge/-Ansible-EE0000?logo=ansible&logoColor=white" alt="Ansible" />
-  </a>
-  &nbsp;
-  <a href="https://www.docker.com/" target="_blank">
-    <img src="https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white" alt="Docker" />
-  </a>
-</p>
+  <a href="https://aws.amazon.com/" target="_blank"><img src="https://img.shields.io/badge/-Amazon%20AWS-FF9900?logo=amazon-aws&logoColor=white" alt="AWS" /></a>&nbsp;
+  <a href="https://www.jenkins.io/" target="_blank"><img src="https://img.shields.io/badge/-Jenkins-D24939?logo=jenkins&logoColor=white" alt="jenkins" /></a>&nbsp;
+  <a href="https://www.terraform.io/" target="_blank"><img src="https://img.shields.io/badge/-Terraform-7B42BC?logo=terraform&logoColor=white" alt="terraform" /></a>&nbsp;
+  <a href="https://www.ansible.com/" target="_blank"><img src="https://img.shields.io/badge/-Ansible-EE0000?logo=ansible&logoColor=white" alt="ansible" /></a>&nbsp;
+  <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white" alt="Docker" /></a>&nbsp;</p>
 
 ## ⚡️ Overview
 
